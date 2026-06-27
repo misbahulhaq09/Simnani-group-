@@ -219,7 +219,7 @@ export default function App() {
             <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-12 lg:gap-16 items-end w-full max-w-7xl mx-auto">
               <div className="left-col space-y-8 md:space-y-10">
                 <AnimatedHeading 
-                  text={"Simnani Group –\nBuilding Opportunities\nAcross Industries"}
+                  text={"Simnani Big Land –\nBuilding Opportunities\nAcross Industries"}
                   className="text-[7.5vw] xs:text-[6.5vw] sm:text-[44px] md:text-6xl lg:text-[68px] font-bold mb-4 leading-[1.1] sm:leading-[1.05] tracking-tight text-shadow-premium"
                   initialDelay={200}
                   charDelay={25}
@@ -386,7 +386,7 @@ export default function App() {
               {appData.logoUrl ? (
                 <img src={appData.logoUrl} alt="Logo" className="h-10 w-auto object-contain mx-auto md:mx-0 logo-sharpness" />
               ) : (
-                <div className="text-3xl font-black metallic-gold-text uppercase tracking-tighter">SIMNANI GROUP</div>
+                <div className="text-3xl font-black metallic-gold-text uppercase tracking-tighter">SIMNANI BIG LAND</div>
               )}
             </div>
             <p className="text-gray-500 text-sm max-w-xs">Building opportunities across premium real estate and sustainable industries since 2026.</p>
