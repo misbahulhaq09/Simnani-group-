@@ -30,12 +30,22 @@ export default function LoadingOverlay() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="mt-8 flex flex-col items-center"
+          className="mt-8 flex flex-col items-center select-none"
         >
-          <h2 className="text-2xl font-black tracking-[0.3em] metallic-gold-text uppercase">
-            SIMNANI
-          </h2>
-          <div className="h-[1px] w-12 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent mt-2" />
+          <span className="text-3xl md:text-4xl font-black tracking-tighter metallic-gold-text uppercase leading-none">SIMNANI</span>
+          <div className="w-24 h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent my-1.5" />
+          <span className="text-lg md:text-xl font-bold tracking-[0.25em] metallic-gold-text uppercase pl-[0.25em] leading-none mb-6">GROUPS</span>
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="flex flex-col items-center"
+          >
+            <div className="h-[1px] w-8 bg-[#D4AF37]/30 mb-3" />
+            <span className="text-[#D4AF37]/60 text-[10px] tracking-[0.3em] uppercase font-light">Founder</span>
+            <span className="text-[#D4AF37] text-sm md:text-base tracking-[0.1em] font-bold mt-1 uppercase">Imran Ali</span>
+          </motion.div>
         </motion.div>
       </div>
       

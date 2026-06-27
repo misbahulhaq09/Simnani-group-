@@ -146,7 +146,11 @@ export default function App() {
                 {appData.logoUrl ? (
                   <img src={appData.logoUrl} alt="Logo" className="h-10 md:h-13 w-auto object-contain logo-sharpness" />
                 ) : (
-                  <div className="text-3xl md:text-4xl font-black tracking-tighter metallic-gold-text uppercase leading-none">SIMNANI</div>
+                  <div className="flex flex-col items-center leading-none select-none">
+                    <span className="text-2xl md:text-3xl font-black tracking-tighter metallic-gold-text uppercase leading-none">SIMNANI</span>
+                    <div className="w-full h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent my-1" />
+                    <span className="text-base md:text-lg font-bold tracking-[0.25em] metallic-gold-text uppercase pl-[0.25em] leading-none">GROUPS</span>
+                  </div>
                 )}
               </div>
               
@@ -217,9 +221,16 @@ export default function App() {
           {/* Hero Content */}
           <div className="flex-1 flex flex-col justify-center md:justify-end px-5 xs:px-6 md:px-12 lg:px-16 pb-4 md:pb-32 pt-28 md:pt-0">
             <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-8 md:gap-12 lg:gap-16 items-end w-full max-w-7xl mx-auto">
-              <div className="left-col space-y-8 md:space-y-10">
+              <div className="left-col space-y-6 md:space-y-8">
+                <FadeIn delay={100} duration={800}>
+                  <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#D4AF37]/20 bg-[#D4AF37]/5 text-xs md:text-sm tracking-widest uppercase font-semibold text-[#D4AF37] select-none text-shadow-premium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
+                    Founder: Imran Ali
+                  </div>
+                </FadeIn>
+
                 <AnimatedHeading 
-                  text={"Simnani Big Land –\nBuilding Opportunities\nAcross Industries"}
+                  text={"Simnani Groups –\nBuilding Opportunities\nAcross Industries"}
                   className="text-[7.5vw] xs:text-[6.5vw] sm:text-[44px] md:text-6xl lg:text-[68px] font-bold mb-4 leading-[1.1] sm:leading-[1.05] tracking-tight text-shadow-premium"
                   initialDelay={200}
                   charDelay={25}
@@ -344,15 +355,23 @@ export default function App() {
       <section id="about" className="py-4 md:py-24 px-5 xs:px-6 md:px-12 lg:px-16 bg-[#0A1120]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
           <FadeIn>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">Our Location</h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">About & Location</h2>
+            
+            <div className="mb-6 p-4 rounded-2xl bg-[#D4AF37]/5 border border-[#D4AF37]/10 max-w-lg">
+              <span className="text-xs uppercase tracking-[0.2em] text-[#D4AF37]/80 block mb-1">Visionary Leadership</span>
+              <p className="text-white text-base md:text-lg font-bold">
+                Founder: Imran Ali
+              </p>
+            </div>
+
             <p className="text-gray-400 mb-8 max-w-lg leading-relaxed text-sm md:text-base">
-              Visit us at our central office in Currency Tower, Bhilai. We are strategically located to serve our diverse interests across the region and beyond.
+              SIMNANI GROUPS, established under the leadership of founder Imran Ali, operates from its central executive office in Currency Tower, Raipur. We are strategically aligned to spearhead growth and premium innovations across diverse real estate and high-impact industries.
             </p>
             <div className="space-y-4">
               <div className="flex items-start gap-4">
                 <MapPin className="text-[#D4AF37] shrink-0 mt-1" size={20} />
                 <p className="text-gray-300 text-sm md:text-base">
-                  Shop No 1080, First Floor, Beside House of Sansa, Currency Tower, VIP Road Corner, Bhilai, Chhattisgarh, India
+                  Shop No 1080, First Floor, Beside House of Sansa, Currency Tower, VIP Road Corner, Raipur, Chhattisgarh, India
                 </p>
               </div>
               <div className="flex items-center gap-4">
@@ -366,7 +385,7 @@ export default function App() {
 
           <FadeIn delay={300} className="w-full h-[300px] sm:h-[400px] rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14878.0416999238!2d81.33!3d21.19!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a293ea8b1a41f6f%3A0x6b72d2e2b9c2980!2sCurrency%20Tower!5e0!3m2!1sen!2sin!4v1713430000000!5m2!1sen!2sin" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.591605634568!2d81.6749!3d21.2263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28dd492666d6d3%3A0xe54e66c0fc955b27!2sCurrency%20Tower!5e0!3m2!1sen!2sin!4v1713430000000!5m2!1sen!2sin" 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 
@@ -386,7 +405,11 @@ export default function App() {
               {appData.logoUrl ? (
                 <img src={appData.logoUrl} alt="Logo" className="h-10 w-auto object-contain mx-auto md:mx-0 logo-sharpness" />
               ) : (
-                <div className="text-3xl font-black metallic-gold-text uppercase tracking-tighter">SIMNANI BIG LAND</div>
+                <div className="flex flex-col items-center md:items-start leading-none select-none mx-auto md:mx-0 max-w-max">
+                  <span className="text-2xl font-black tracking-tighter metallic-gold-text uppercase leading-none">SIMNANI</span>
+                  <div className="w-full h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent my-1" />
+                  <span className="text-base font-bold tracking-[0.25em] metallic-gold-text uppercase pl-[0.25em] leading-none">GROUPS</span>
+                </div>
               )}
             </div>
             <p className="text-gray-500 text-sm max-w-xs">Building opportunities across premium real estate and sustainable industries since 2026.</p>
