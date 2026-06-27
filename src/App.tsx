@@ -113,7 +113,7 @@ export default function App() {
         onClose={() => setIsAdminOpen(false)} 
       />
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative min-h-[500px] md:h-screen overflow-hidden flex flex-col">
         {/* Background */}
         <div className="absolute inset-0 z-0">
           {appData.heroBackgroundType === 'video' ? (
@@ -138,7 +138,7 @@ export default function App() {
         </div>
 
         {/* Content Overlay */}
-        <div className="relative z-20 flex flex-col h-full">
+        <div className="relative z-20 flex flex-col flex-1">
           {/* Navbar */}
           <header className="px-5 xs:px-6 md:px-12 lg:px-16 pt-6 md:pt-8 w-full flex justify-center relative z-50">
             <nav className="liquid-glass rounded-2xl px-5 xs:px-8 py-4 w-full flex justify-between items-center h-20 max-w-7xl border border-[#D4AF37]/20 shadow-[0_0_20px_rgba(212,175,55,0.05)]">
@@ -215,8 +215,8 @@ export default function App() {
           </header>
 
           {/* Hero Content */}
-          <div className="flex-1 flex flex-col justify-end px-5 xs:px-6 md:px-12 lg:px-16 pb-20 md:pb-32">
-            <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-12 lg:gap-16 items-end w-full max-w-7xl mx-auto">
+          <div className="flex-1 flex flex-col justify-center md:justify-end px-5 xs:px-6 md:px-12 lg:px-16 pb-4 md:pb-32 pt-28 md:pt-0">
+            <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-8 md:gap-12 lg:gap-16 items-end w-full max-w-7xl mx-auto">
               <div className="left-col space-y-8 md:space-y-10">
                 <AnimatedHeading 
                   text={"Simnani Big Land –\nBuilding Opportunities\nAcross Industries"}
@@ -258,8 +258,8 @@ export default function App() {
       </section>
 
       {/* Ventures Section */}
-      <section id="ventures" className="py-20 md:py-32 px-5 xs:px-6 md:px-12 lg:px-16 relative z-10 bg-[#050B18]">
-        <FadeIn className="text-center mb-12 md:mb-20">
+      <section id="ventures" className="py-4 md:py-32 px-5 xs:px-6 md:px-12 lg:px-16 relative z-10 bg-[#050B18]">
+        <FadeIn className="text-center mb-4 md:mb-20">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-shadow-premium">Our Ventures</h2>
           <div className="h-0.5 w-24 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent mx-auto rounded-full"></div>
         </FadeIn>
@@ -341,8 +341,8 @@ export default function App() {
       </section>
 
       {/* Map & About Section */}
-      <section id="about" className="py-20 md:py-24 px-5 xs:px-6 md:px-12 lg:px-16 bg-[#0A1120]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
+      <section id="about" className="py-4 md:py-24 px-5 xs:px-6 md:px-12 lg:px-16 bg-[#0A1120]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
           <FadeIn>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">Our Location</h2>
             <p className="text-gray-400 mb-8 max-w-lg leading-relaxed text-sm md:text-base">
@@ -379,7 +379,7 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="py-12 px-5 xs:px-6 md:px-12 lg:px-16 border-t border-[#D4AF37]/10 bg-[#060B16]">
+      <footer id="contact" className="py-6 md:py-12 px-5 xs:px-6 md:px-12 lg:px-16 border-t border-[#D4AF37]/10 bg-[#060B16]">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 max-w-7xl mx-auto">
           <div className="text-center md:text-left">
             <div className="mb-6">
