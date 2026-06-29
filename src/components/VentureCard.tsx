@@ -308,7 +308,7 @@ export default function VentureCard({ venture, index }: VentureCardProps) {
               className="glass-button flex items-center justify-center gap-3 text-white py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-sm tracking-wide"
             >
               <Globe size={18} strokeWidth={1.5} />
-              VISIT WEBSITE
+              EXPLORE PROJECTS
             </a>
           </div>
         </div>

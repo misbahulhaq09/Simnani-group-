@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import logoImg from '../../Images/IMG_20260627_132324.jpg';
 
 export default function LoadingOverlay() {
   return (
@@ -25,16 +26,19 @@ export default function LoadingOverlay() {
           <div className="absolute inset-2 rounded-full border border-[#D4AF37]/10 border-b-[#D4AF37]/40 animate-pulse" />
         </motion.div>
 
-        {/* Text Logo Animation */}
+        {/* Logo Image Animation */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
           className="mt-8 flex flex-col items-center select-none"
         >
-          <span className="text-3xl md:text-4xl font-black tracking-tighter metallic-gold-text uppercase leading-none">SIMNANI</span>
-          <div className="w-24 h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent my-1.5" />
-          <span className="text-lg md:text-xl font-bold tracking-[0.25em] metallic-gold-text uppercase pl-[0.25em] leading-none mb-6">GROUPS</span>
+          <img 
+            src={logoImg} 
+            alt="Simnani Groups Logo" 
+            className="h-28 md:h-36 w-auto object-contain logo-sharpness mb-6 filter drop-shadow-[0_4px_30px_rgba(212,175,55,0.3)] animate-pulse" 
+            referrerPolicy="no-referrer"
+          />
           
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

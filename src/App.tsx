@@ -12,6 +12,7 @@ import AdminPanel from './components/AdminPanel';
 import LoadingOverlay from './components/LoadingOverlay';
 import VentureCard from './components/VentureCard';
 import { AppData } from './types';
+import logoImg from '../Images/IMG_20260627_132324.jpg';
 
 const ICON_MAP: Record<string, any> = {
   Home,
@@ -20,7 +21,7 @@ const ICON_MAP: Record<string, any> = {
 };
 
 const DEFAULT_DATA: AppData = {
-  logoUrl: '',
+  logoUrl: logoImg,
   heroBackground: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4',
   heroBackgroundType: 'video',
   ventures: [
@@ -79,6 +80,11 @@ export default function App() {
             }
             return v;
           });
+        }
+        // Migration: Update empty or non-existent logoUrl to the newly uploaded logo
+        if (!parsed.logoUrl || parsed.logoUrl === '') {
+          parsed.logoUrl = logoImg;
+          hasChanges = true;
         }
         if (hasChanges) {
           localStorage.setItem('simnani_app_data_v2', JSON.stringify(parsed));
@@ -142,17 +148,14 @@ export default function App() {
         <div className="relative z-20 flex flex-col flex-1">
           {/* Navbar */}
           <header className="px-5 xs:px-6 md:px-12 lg:px-16 pt-6 md:pt-8 w-full flex justify-center relative z-50">
-            <nav className="liquid-glass rounded-2xl px-5 xs:px-8 py-4 w-full flex justify-between items-center h-20 max-w-7xl border border-[#D4AF37]/20 shadow-[0_0_20px_rgba(212,175,55,0.05)]">
+            <nav className="liquid-glass rounded-2xl px-5 xs:px-8 py-4 w-full flex justify-between items-center h-24 md:h-32 max-w-7xl border border-[#D4AF37]/20 shadow-[0_0_20px_rgba(212,175,55,0.05)]">
               <div className="flex items-center transition-transform hover:scale-105 duration-300">
-                {appData.logoUrl ? (
-                  <img src={appData.logoUrl} alt="Logo" className="h-10 md:h-13 w-auto object-contain logo-sharpness" />
-                ) : (
-                  <div className="flex flex-col items-center leading-none select-none">
-                    <span className="text-2xl md:text-3xl font-black tracking-tighter metallic-gold-text uppercase leading-none">SIMNANI</span>
-                    <div className="w-full h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent my-1" />
-                    <span className="text-base md:text-lg font-bold tracking-[0.25em] metallic-gold-text uppercase pl-[0.25em] leading-none">GROUPS</span>
-                  </div>
-                )}
+                <img 
+                  src={appData.logoUrl || logoImg} 
+                  alt="Simnani Groups Logo" 
+                  className="h-16 md:h-24 w-auto object-contain logo-sharpness filter drop-shadow-[0_2px_15px_rgba(212,175,55,0.15)]" 
+                  referrerPolicy="no-referrer"
+                />
               </div>
               
               <div className="hidden md:flex items-center justify-center gap-10">
@@ -338,15 +341,12 @@ export default function App() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 max-w-7xl mx-auto">
           <div className="text-center md:text-left">
             <div className="mb-6">
-              {appData.logoUrl ? (
-                <img src={appData.logoUrl} alt="Logo" className="h-10 w-auto object-contain mx-auto md:mx-0 logo-sharpness" />
-              ) : (
-                <div className="flex flex-col items-center md:items-start leading-none select-none mx-auto md:mx-0 max-w-max">
-                  <span className="text-2xl font-black tracking-tighter metallic-gold-text uppercase leading-none">SIMNANI</span>
-                  <div className="w-full h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent my-1" />
-                  <span className="text-base font-bold tracking-[0.25em] metallic-gold-text uppercase pl-[0.25em] leading-none">GROUPS</span>
-                </div>
-              )}
+              <img 
+                src={appData.logoUrl || logoImg} 
+                alt="Simnani Groups Logo" 
+                className="h-16 md:h-20 w-auto object-contain mx-auto md:mx-0 logo-sharpness filter drop-shadow-[0_2px_10px_rgba(212,175,55,0.1)]" 
+                referrerPolicy="no-referrer"
+              />
             </div>
             <p className="text-gray-500 text-sm max-w-xs">Building opportunities across premium real estate and sustainable industries since 2026.</p>
           </div>
