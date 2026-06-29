@@ -14,6 +14,7 @@ import VentureCard from './components/VentureCard';
 import { AppData } from './types';
 import logoImg from '../Images/IMG_20260627_132324.jpg';
 import officeImg from '../Images/87a643714e3f10db3fb44a5c4793d5b2.jpg';
+import estatesWatermark from '../Images/IMG_20260627_143308.jpg';
 
 const ICON_MAP: Record<string, any> = {
   Home,
@@ -33,6 +34,8 @@ const DEFAULT_DATA: AppData = {
       whatsapp: "https://wa.me/919407715886",
       website: "https://simnaniestates.com",
       iconName: "Home",
+      watermarkImage: estatesWatermark,
+      backgroundImage: estatesWatermark,
       additionalContacts: [
         { phone: "+91 7869829723", whatsapp: "https://wa.me/917869829723" }
       ],

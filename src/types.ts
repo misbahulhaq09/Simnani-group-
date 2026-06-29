@@ -10,6 +10,8 @@ export interface Venture {
   whatsapp: string;
   website: string;
   image?: string; // Base64 or URL
+  watermarkImage?: string;
+  backgroundImage?: string;
   iconName: string;
   additionalContacts?: AdditionalContact[];
 }

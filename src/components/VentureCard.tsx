@@ -145,11 +145,36 @@ export default function VentureCard({ venture, index }: VentureCardProps) {
     <div className="h-full">
       <div className="liquid-glass p-6 xs:p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] h-full flex flex-col group hover:border-[#D4AF37]/20 transition-all duration-500 hover:-translate-y-2 overflow-hidden relative">
         
-        {/* Background Image if exists */}
+        {/* Background Layer with Image support */}
+        {venture.backgroundImage && (
+          <div className="absolute inset-0 z-0 overflow-hidden">
+            <div className="absolute inset-0 bg-[#0A1120] opacity-90"></div>
+            <img 
+              src={venture.backgroundImage} 
+              alt="" 
+              className="absolute inset-0 w-full h-full object-cover opacity-[0.12] grayscale mix-blend-overlay transition-opacity duration-700 group-hover:opacity-[0.18]"
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Background Image if exists (Original property) */}
         {venture.image && (
           <div className="absolute inset-0 z-0 opacity-20 group-hover:opacity-40 transition-opacity">
             <img src={venture.image} alt="" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#050B18] via-[#050B18]/50 to-transparent" />
+          </div>
+        )}
+
+        {/* Watermark Logo */}
+        {venture.watermarkImage && (
+          <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
+            <img 
+              src={venture.watermarkImage} 
+              alt="" 
+              className="w-[70%] h-auto object-contain opacity-[0.10] grayscale contrast-125 mix-blend-luminosity" 
+              referrerPolicy="no-referrer"
+            />
           </div>
         )}
 
