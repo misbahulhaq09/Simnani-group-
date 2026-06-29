@@ -10,6 +10,7 @@ import AnimatedHeading from './components/AnimatedHeading';
 import FadeIn from './components/FadeIn';
 import AdminPanel from './components/AdminPanel';
 import LoadingOverlay from './components/LoadingOverlay';
+import VentureCard from './components/VentureCard';
 import { AppData } from './types';
 
 const ICON_MAP: Record<string, any> = {
@@ -276,78 +277,13 @@ export default function App() {
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto">
-          {appData.ventures.map((venture, i) => {
-            const Icon = ICON_MAP[venture.iconName] || Globe;
-            return (
-              <div key={venture.name} className="h-full">
-                <FadeIn delay={200 + i * 100} className="h-full">
-                  <div className="liquid-glass p-6 xs:p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] h-full flex flex-col group hover:border-[#D4AF37]/20 transition-all duration-500 hover:-translate-y-2 overflow-hidden relative">
-                    {/* Background Image if exists */}
-                    {venture.image && (
-                      <div className="absolute inset-0 z-0 opacity-20 group-hover:opacity-40 transition-opacity">
-                        <img src={venture.image} alt="" className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#050B18] via-[#050B18]/50 to-transparent" />
-                      </div>
-                    )}
-
-                    <div className="relative z-10 mb-8 md:mb-10">
-                      <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-start text-[#D4AF37]/60 mb-6 group-hover:text-[#D4AF37] transition-all duration-500">
-                        <Icon size={32} strokeWidth={1} />
-                      </div>
-                      <h3 className="text-xl md:text-2xl font-bold text-[#D4AF37] mb-4 tracking-tight text-shadow-premium">{venture.name}</h3>
-                      <p className="text-white/70 leading-relaxed text-sm md:text-base font-light text-shadow-premium">
-                        {venture.description}
-                      </p>
-                    </div>
-                    
-                    <div className="relative z-10 mt-auto space-y-6 md:space-y-8">
-                      <div className="flex flex-col gap-1">
-                        <span className="text-[10px] uppercase tracking-[0.2em] text-[#D4AF37]/40 font-bold">Contact</span>
-                        <span className="text-sm md:text-base font-medium text-white/70 text-shadow-premium tracking-wide">{venture.phone}</span>
-                        {venture.additionalContacts?.map((contact, idx) => (
-                          <span key={idx} className="text-sm md:text-base font-medium text-white/70 text-shadow-premium tracking-wide mt-1">{contact.phone}</span>
-                        ))}
-                      </div>
-
-                      <div className="flex flex-col gap-3 md:gap-4">
-                        <a 
-                          href={venture.whatsapp}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="glass-button flex items-center justify-center gap-3 text-white py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-sm tracking-wide"
-                        >
-                          <MessageSquare size={18} strokeWidth={1.5} />
-                          WHATSAPP
-                        </a>
-                        {venture.additionalContacts?.map((contact, idx) => (
-                          <a 
-                            key={idx}
-                            href={contact.whatsapp}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="glass-button flex items-center justify-center gap-3 text-white py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-sm tracking-wide"
-                          >
-                            <MessageSquare size={18} strokeWidth={1.5} />
-                            WHATSAPP ({contact.phone.replace('+91 ', '')})
-                          </a>
-                        ))}
-                        
-                        <a 
-                          href={venture.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="glass-button flex items-center justify-center gap-3 text-white py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-sm tracking-wide"
-                        >
-                          <Globe size={18} strokeWidth={1.5} />
-                          VISIT WEBSITE
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </FadeIn>
-              </div>
-            );
-          })}
+          {appData.ventures.map((venture, i) => (
+            <div key={venture.name} className="h-full">
+              <FadeIn delay={200 + i * 100} className="h-full">
+                <VentureCard venture={venture} index={i} />
+              </FadeIn>
+            </div>
+          ))}
         </div>
       </section>
 
