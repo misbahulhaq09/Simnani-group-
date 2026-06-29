@@ -36,7 +36,7 @@ export default function LoadingOverlay() {
           <img 
             src={logoImg} 
             alt="Simnani Groups Logo" 
-            className="h-28 md:h-36 w-auto object-contain logo-sharpness mb-6 filter drop-shadow-[0_4px_30px_rgba(212,175,55,0.3)] animate-pulse" 
+            className="h-40 md:h-52 w-auto object-contain logo-sharpness mb-6 filter drop-shadow-[0_6px_35px_rgba(212,175,55,0.35)] animate-pulse" 
             referrerPolicy="no-referrer"
           />
           

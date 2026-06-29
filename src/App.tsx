@@ -13,6 +13,7 @@ import LoadingOverlay from './components/LoadingOverlay';
 import VentureCard from './components/VentureCard';
 import { AppData } from './types';
 import logoImg from '../Images/IMG_20260627_132324.jpg';
+import officeImg from '../Images/87a643714e3f10db3fb44a5c4793d5b2.jpg';
 
 const ICON_MAP: Record<string, any> = {
   Home,
@@ -148,12 +149,12 @@ export default function App() {
         <div className="relative z-20 flex flex-col flex-1">
           {/* Navbar */}
           <header className="px-5 xs:px-6 md:px-12 lg:px-16 pt-6 md:pt-8 w-full flex justify-center relative z-50">
-            <nav className="liquid-glass rounded-2xl px-5 xs:px-8 py-4 w-full flex justify-between items-center h-24 md:h-32 max-w-7xl border border-[#D4AF37]/20 shadow-[0_0_20px_rgba(212,175,55,0.05)]">
+            <nav className="liquid-glass rounded-2xl px-5 xs:px-8 py-5 md:py-6 w-full flex justify-between items-center max-w-7xl border border-[#D4AF37]/20 shadow-[0_0_20px_rgba(212,175,55,0.05)]">
               <div className="flex items-center transition-transform hover:scale-105 duration-300">
                 <img 
                   src={appData.logoUrl || logoImg} 
                   alt="Simnani Groups Logo" 
-                  className="h-16 md:h-24 w-auto object-contain logo-sharpness filter drop-shadow-[0_2px_15px_rgba(212,175,55,0.15)]" 
+                  className="h-20 xs:h-24 md:h-36 w-auto object-contain logo-sharpness filter drop-shadow-[0_4px_25px_rgba(212,175,55,0.25)]" 
                   referrerPolicy="no-referrer"
                 />
               </div>
@@ -201,7 +202,7 @@ export default function App() {
 
             {/* Premium Mobile Menu Dropdown */}
             <div 
-              className={`md:hidden absolute top-[88px] left-5 right-5 z-40 liquid-glass rounded-2xl p-6 transition-all duration-300 ease-out border border-white/10 ${
+              className={`md:hidden absolute top-full mt-3 left-5 right-5 z-40 liquid-glass rounded-2xl p-6 transition-all duration-300 ease-out border border-white/10 ${
                 isMobileMenuOpen 
                   ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' 
                   : 'opacity-0 -translate-y-4 scale-95 pointer-events-none'
@@ -322,17 +323,32 @@ export default function App() {
             </div>
           </FadeIn>
 
-          <FadeIn delay={300} className="w-full h-[300px] sm:h-[400px] rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.591605634568!2d81.6749!3d21.2263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28dd492666d6d3%3A0xe54e66c0fc955b27!2sCurrency%20Tower!5e0!3m2!1sen!2sin!4v1713430000000!5m2!1sen!2sin" 
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen={true} 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </FadeIn>
+          <div className="flex flex-col gap-6 w-full">
+            <FadeIn delay={300} className="w-full h-[250px] sm:h-[300px] rounded-3xl overflow-hidden border border-[#D4AF37]/20 shadow-2xl relative group">
+              <img 
+                src={officeImg} 
+                alt="Simnani Groups Office at Currency Tower" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
+                <span className="text-xs uppercase tracking-[0.25em] text-[#D4AF37] font-bold">Executive Office</span>
+                <h3 className="text-white text-lg font-bold mt-1">Currency Tower, Raipur</h3>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={400} className="w-full h-[250px] sm:h-[300px] rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.591605634568!2d81.6749!3d21.2263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28dd492666d6d3%3A0xe54e66c0fc955b27!2sCurrency%20Tower!5e0!3m2!1sen!2sin!4v1713430000000!5m2!1sen!2sin" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </FadeIn>
+          </div>
         </div>
       </section>
 
@@ -344,7 +360,7 @@ export default function App() {
               <img 
                 src={appData.logoUrl || logoImg} 
                 alt="Simnani Groups Logo" 
-                className="h-16 md:h-20 w-auto object-contain mx-auto md:mx-0 logo-sharpness filter drop-shadow-[0_2px_10px_rgba(212,175,55,0.1)]" 
+                className="h-24 md:h-32 w-auto object-contain mx-auto md:mx-0 logo-sharpness filter drop-shadow-[0_4px_20px_rgba(212,175,55,0.2)]" 
                 referrerPolicy="no-referrer"
               />
             </div>
