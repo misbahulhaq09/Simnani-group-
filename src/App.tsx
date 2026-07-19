@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'motion/react';
-import { MessageSquare, Mail, MapPin, Home, Leaf, Globe, Menu, X, Settings } from 'lucide-react';
+import { MessageSquare, Mail, MapPin, Home, Leaf, Globe, Menu, X, Settings, Instagram } from 'lucide-react';
 import AnimatedHeading from './components/AnimatedHeading';
 import FadeIn from './components/FadeIn';
 import AdminPanel from './components/AdminPanel';
@@ -32,10 +32,8 @@ const DEFAULT_DATA: AppData = {
       description: "Premium real estate developments and plotted communities designed for modern living.",
       phone: "+91 9407715886",
       whatsapp: "https://wa.me/919407715886",
-      website: "https://simnaniestates.com",
+      website: "https://simnaniestates.netlify.app",
       iconName: "Home",
-      watermarkImage: estatesWatermark,
-      backgroundImage: estatesWatermark,
       additionalContacts: [
         { phone: "+91 7869829723", whatsapp: "https://wa.me/917869829723" }
       ],
@@ -82,6 +80,17 @@ export default function App() {
               v.name = "Simnani Big Land";
               hasChanges = true;
             }
+            if (v.name === "Simnani Estates") {
+              if (v.website === "https://simnaniestates.com" || !v.website || v.website.includes("simnaniestates.com")) {
+                v.website = "https://simnaniestates.netlify.app";
+                hasChanges = true;
+              }
+              if (v.watermarkImage || v.backgroundImage) {
+                delete v.watermarkImage;
+                delete v.backgroundImage;
+                hasChanges = true;
+              }
+            }
             return v;
           });
         }
@@ -123,8 +132,10 @@ export default function App() {
         isOpen={isAdminOpen} 
         onClose={() => setIsAdminOpen(false)} 
       />
-      {/* Hero Section */}
-      <section className="relative min-h-[500px] md:h-screen overflow-hidden flex flex-col">
+
+      <main>
+        {/* Hero Section */}
+        <section className="relative min-h-[500px] md:h-screen overflow-hidden flex flex-col">
         {/* Background */}
         <div className="absolute inset-0 z-0">
           {appData.heroBackgroundType === 'video' ? (
@@ -140,7 +151,10 @@ export default function App() {
           ) : (
             <img 
               src={appData.heroBackground} 
-              alt="Hero Background" 
+              alt="Simnani Groups Premium Real Estate and Agriculture Developments in Raipur" 
+              width={1920}
+              height={1080}
+              loading="eager"
               className="w-full h-full object-cover opacity-60"
             />
           )}
@@ -156,7 +170,10 @@ export default function App() {
               <div className="flex items-center transition-transform hover:scale-105 duration-300">
                 <img 
                   src={appData.logoUrl || logoImg} 
-                  alt="Simnani Groups Logo" 
+                  alt="Simnani Groups Logo - Premium Real Estate & Agriculture Investments in Chhattisgarh" 
+                  width={200}
+                  height={144}
+                  fetchPriority="high"
                   className="h-20 xs:h-24 md:h-36 w-auto object-contain logo-sharpness filter drop-shadow-[0_4px_25px_rgba(212,175,55,0.25)]" 
                   referrerPolicy="no-referrer"
                 />
@@ -175,6 +192,17 @@ export default function App() {
               </div>
 
               <div className="flex justify-end items-center gap-4">
+                {/* Instagram Link */}
+                <a 
+                  href="https://www.instagram.com/simnani.groups/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="p-2 hover:bg-white/10 rounded-full transition-colors text-white/60 hover:text-[#D4AF37]"
+                  title="Instagram: @simnani.groups"
+                >
+                  <Instagram size={20} />
+                </a>
+
                 {/* Admin Trigger (Settings Icon) */}
                 <button 
                   onClick={() => setIsAdminOpen(true)}
@@ -222,6 +250,19 @@ export default function App() {
                     {link}
                   </a>
                 ))}
+                
+                {/* Mobile Social Links */}
+                <div className="flex justify-center gap-6 pt-4 border-t border-white/5 mt-2">
+                  <a href={appData.socialLinks.whatsapp} target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-[#D4AF37] transition-colors" title="WhatsApp">
+                    <MessageSquare size={20} />
+                  </a>
+                  <a href="https://www.instagram.com/simnani.groups/" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-[#D4AF37] transition-colors" title="Instagram">
+                    <Instagram size={20} />
+                  </a>
+                  <a href={`mailto:${appData.socialLinks.email}`} className="text-white/60 hover:text-[#D4AF37] transition-colors" title="Email">
+                    <Mail size={20} />
+                  </a>
+                </div>
               </div>
             </div>
           </header>
@@ -323,6 +364,12 @@ export default function App() {
                   {appData.socialLinks.email}
                 </a>
               </div>
+              <div className="flex items-center gap-4">
+                <Instagram className="text-[#D4AF37] shrink-0" size={20} />
+                <a href="https://www.instagram.com/simnani.groups/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-[#D4AF37] transition-colors underline-offset-4 hover:underline text-sm md:text-base">
+                  @simnani.groups
+                </a>
+              </div>
             </div>
           </FadeIn>
 
@@ -330,7 +377,10 @@ export default function App() {
             <FadeIn delay={300} className="w-full h-[250px] sm:h-[300px] rounded-3xl overflow-hidden border border-[#D4AF37]/20 shadow-2xl relative group">
               <img 
                 src={officeImg} 
-                alt="Simnani Groups Office at Currency Tower" 
+                alt="Simnani Groups Executive Office at Currency Tower, Raipur, Chhattisgarh" 
+                width={600}
+                height={300}
+                loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                 referrerPolicy="no-referrer"
               />
@@ -354,6 +404,7 @@ export default function App() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* Footer */}
       <footer id="contact" className="py-6 md:py-12 px-5 xs:px-6 md:px-12 lg:px-16 border-t border-[#D4AF37]/10 bg-[#060B16]">
@@ -362,7 +413,10 @@ export default function App() {
             <div className="mb-6">
               <img 
                 src={appData.logoUrl || logoImg} 
-                alt="Simnani Groups Logo" 
+                alt="Simnani Groups Logo - Premium Real Estate Developments" 
+                width={150}
+                height={128}
+                loading="lazy"
                 className="h-24 md:h-32 w-auto object-contain mx-auto md:mx-0 logo-sharpness filter drop-shadow-[0_4px_20px_rgba(212,175,55,0.2)]" 
                 referrerPolicy="no-referrer"
               />
@@ -370,8 +424,9 @@ export default function App() {
             <p className="text-gray-500 text-sm max-w-xs">Building opportunities across premium real estate and sustainable industries since 2026.</p>
           </div>
           <div className="flex gap-6">
-            <a href={appData.socialLinks.whatsapp} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#D4AF37] transition-colors"><MessageSquare size={20} /></a>
-            <a href={`mailto:${appData.socialLinks.email}`} className="text-gray-400 hover:text-[#D4AF37] transition-colors"><Mail size={20} /></a>
+            <a href={appData.socialLinks.whatsapp} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#D4AF37] transition-colors" title="WhatsApp"><MessageSquare size={20} /></a>
+            <a href="https://www.instagram.com/simnani.groups/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#D4AF37] transition-colors" title="Instagram"><Instagram size={20} /></a>
+            <a href={`mailto:${appData.socialLinks.email}`} className="text-gray-400 hover:text-[#D4AF37] transition-colors" title="Email"><Mail size={20} /></a>
           </div>
         </div>
       </footer>

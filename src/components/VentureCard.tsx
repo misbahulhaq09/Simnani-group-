@@ -151,7 +151,10 @@ export default function VentureCard({ venture, index }: VentureCardProps) {
             <div className="absolute inset-0 bg-[#0A1120] opacity-90"></div>
             <img 
               src={venture.backgroundImage} 
-              alt="" 
+              alt={`${venture.name} Premium Background Asset`} 
+              width={600}
+              height={400}
+              loading="lazy"
               className="absolute inset-0 w-full h-full object-cover opacity-[0.12] grayscale mix-blend-overlay transition-opacity duration-700 group-hover:opacity-[0.18]"
               referrerPolicy="no-referrer"
             />
@@ -161,7 +164,14 @@ export default function VentureCard({ venture, index }: VentureCardProps) {
         {/* Background Image if exists (Original property) */}
         {venture.image && (
           <div className="absolute inset-0 z-0 opacity-20 group-hover:opacity-40 transition-opacity">
-            <img src={venture.image} alt="" className="w-full h-full object-cover" />
+            <img 
+              src={venture.image} 
+              alt={`${venture.name} Premium Projects and Developments`} 
+              width={600}
+              height={400}
+              loading="lazy"
+              className="w-full h-full object-cover" 
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-[#050B18] via-[#050B18]/50 to-transparent" />
           </div>
         )}
@@ -171,7 +181,10 @@ export default function VentureCard({ venture, index }: VentureCardProps) {
           <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
             <img 
               src={venture.watermarkImage} 
-              alt="" 
+              alt={`${venture.name} Premium Logo Watermark`} 
+              width={400}
+              height={400}
+              loading="lazy"
               className="w-[70%] h-auto object-contain opacity-[0.10] grayscale contrast-125 mix-blend-luminosity" 
               referrerPolicy="no-referrer"
             />

@@ -96,6 +96,12 @@ export default function AdminPanel({ data, onSave, onReset, isOpen, onClose }: A
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState<'general' | 'ventures'>('general');
 
+  React.useEffect(() => {
+    if (isOpen) {
+      setEditedData(data);
+    }
+  }, [isOpen, data]);
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (password === ADMIN_PASSWORD) {

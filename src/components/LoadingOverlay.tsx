@@ -35,7 +35,9 @@ export default function LoadingOverlay() {
         >
           <img 
             src={logoImg} 
-            alt="Simnani Groups Logo" 
+            alt="Simnani Groups Logo - Premium Real Estate, Infrastructure and Organic Farming Ventures" 
+            width={208}
+            height={208}
             className="h-40 md:h-52 w-auto object-contain logo-sharpness mb-6 filter drop-shadow-[0_6px_35px_rgba(212,175,55,0.35)] animate-pulse" 
             referrerPolicy="no-referrer"
           />
