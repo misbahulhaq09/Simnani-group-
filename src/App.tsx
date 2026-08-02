@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'motion/react';
-import { MessageSquare, Mail, MapPin, Home, Leaf, Globe, Menu, X, Settings, Instagram } from 'lucide-react';
+import { MessageSquare, Mail, MapPin, Home, Leaf, Globe, Menu, X, Settings, Instagram, Building2 } from 'lucide-react';
 import AnimatedHeading from './components/AnimatedHeading';
 import FadeIn from './components/FadeIn';
 import AdminPanel from './components/AdminPanel';
@@ -332,6 +332,75 @@ export default function App() {
               </FadeIn>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="py-12 md:py-24 px-5 xs:px-6 md:px-12 lg:px-16 bg-[#070D1B] border-t border-[#D4AF37]/10 relative z-10">
+        <div className="max-w-6xl mx-auto">
+          <FadeIn className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-shadow-premium text-white">Services</h2>
+            <div className="h-0.5 w-24 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent mx-auto rounded-full mb-8"></div>
+            <p className="text-gray-300 text-sm md:text-lg leading-relaxed max-w-4xl mx-auto font-light">
+              We provide verified Industrial, Commercial, Residential and Agricultural Land solutions across Chhattisgarh and Madhya Pradesh. Through Simnani Estates, we offer Industrial Land, Factory Land, Warehouse Land, Commercial &amp; Residential Properties. Through Simnani Big Land, we provide Agricultural Land, Farm Investment, Polyhouse &amp; Greenhouse Design, Construction &amp; Installation, Smart Farming Solutions and Plantation Projects.
+            </p>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto mt-8 md:mt-12">
+            <FadeIn delay={200} className="h-full">
+              <div className="bg-[#0A1120] border border-[#D4AF37]/20 rounded-3xl p-6 md:p-8 h-full shadow-xl hover:border-[#D4AF37]/40 transition-all duration-300 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full blur-2xl group-hover:bg-[#D4AF37]/10 transition-all pointer-events-none"></div>
+                <div className="flex items-center gap-3.5 mb-6">
+                  <div className="p-3 rounded-2xl bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20">
+                    <Building2 size={24} />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-white tracking-wide">Simnani Estates</h3>
+                </div>
+                <ul className="space-y-3.5">
+                  {[
+                    "Industrial Land",
+                    "Commercial Property",
+                    "Residential Property",
+                    "Factory Land",
+                    "Warehouse Land",
+                    "Property Consultation"
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-3 text-gray-300 text-sm md:text-base">
+                      <span className="w-2 h-2 rounded-full bg-[#D4AF37] shrink-0"></span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={300} className="h-full">
+              <div className="bg-[#0A1120] border border-[#D4AF37]/20 rounded-3xl p-6 md:p-8 h-full shadow-xl hover:border-[#D4AF37]/40 transition-all duration-300 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full blur-2xl group-hover:bg-[#D4AF37]/10 transition-all pointer-events-none"></div>
+                <div className="flex items-center gap-3.5 mb-6">
+                  <div className="p-3 rounded-2xl bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20">
+                    <Leaf size={24} />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-white tracking-wide">Simnani Big Land</h3>
+                </div>
+                <ul className="space-y-3.5">
+                  {[
+                    "Agricultural Land",
+                    "Farm Investment",
+                    "Polyhouse Design",
+                    "Polyhouse Construction",
+                    "Greenhouse Installation",
+                    "Smart Farming Solutions"
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-3 text-gray-300 text-sm md:text-base">
+                      <span className="w-2 h-2 rounded-full bg-[#D4AF37] shrink-0"></span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+          </div>
         </div>
       </section>
 
