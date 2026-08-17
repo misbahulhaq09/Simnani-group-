@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Settings, Lock, Check, X, Upload, RotateCcw, Trash2, Plus, Image as ImageIcon, Mail } from 'lucide-react';
+import { Settings, Lock, Check, X, Upload, RotateCcw, Trash2, Plus, Image as ImageIcon, Mail, Users } from 'lucide-react';
 import { AppData, Venture, AdditionalContact } from '../types';
 
 interface AdminPanelProps {

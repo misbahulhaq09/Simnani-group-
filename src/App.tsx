@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'motion/react';
-import { MessageSquare, Mail, MapPin, Home, Leaf, Globe, Menu, X, Settings, Instagram, Building2 } from 'lucide-react';
+import { MessageSquare, Mail, MapPin, Home, Leaf, Globe, Menu, X, Settings, Instagram, Building2, Camera, Upload, User } from 'lucide-react';
 import AnimatedHeading from './components/AnimatedHeading';
 import FadeIn from './components/FadeIn';
 import AdminPanel from './components/AdminPanel';
@@ -15,6 +15,7 @@ import { AppData } from './types';
 import logoImg from '../Images/IMG_20260627_132324.jpg';
 import officeImg from '../Images/87a643714e3f10db3fb44a5c4793d5b2.jpg';
 import estatesWatermark from '../Images/IMG_20260627_143308.jpg';
+import imranPhoto from '../Images/WhatsApp Image 2026-08-08 at 4.52.18 AM.jpeg';
 
 const ICON_MAP: Record<string, any> = {
   Home,
@@ -53,6 +54,10 @@ const DEFAULT_DATA: AppData = {
   socialLinks: {
     whatsapp: "https://wa.me/919407715886",
     email: "simnanigroupsraipur@gmail.com"
+  },
+  leadership: {
+    imranAliPhoto: imranPhoto,
+    shaikhMahfoozPhoto: ''
   }
 };
 
@@ -97,6 +102,14 @@ export default function App() {
         // Migration: Update empty or non-existent logoUrl to the newly uploaded logo
         if (!parsed.logoUrl || parsed.logoUrl === '') {
           parsed.logoUrl = logoImg;
+          hasChanges = true;
+        }
+        // Migration: Ensure default photos are populated if currently empty
+        if (!parsed.leadership) {
+          parsed.leadership = { imranAliPhoto: imranPhoto, shaikhMahfoozPhoto: '' };
+          hasChanges = true;
+        } else if (!parsed.leadership.imranAliPhoto || parsed.leadership.imranAliPhoto === '') {
+          parsed.leadership.imranAliPhoto = imranPhoto;
           hasChanges = true;
         }
         if (hasChanges) {
@@ -180,7 +193,7 @@ export default function App() {
               </div>
               
               <div className="hidden md:flex items-center justify-center gap-10">
-                {["Ventures", "About", "Contact"].map((link) => (
+                {["Ventures", "Services", "About", "Contact"].map((link) => (
                   <a
                     key={link}
                     href={`#${link.toLowerCase()}`}
@@ -240,7 +253,7 @@ export default function App() {
               }`}
             >
               <div className="flex flex-col gap-4 text-center">
-                {["Ventures", "About", "Contact"].map((link) => (
+                {["Ventures", "Services", "About", "Contact"].map((link) => (
                   <a
                     key={link}
                     href={`#${link.toLowerCase()}`}
@@ -272,9 +285,28 @@ export default function App() {
             <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-8 md:gap-12 lg:gap-16 items-end w-full max-w-7xl mx-auto">
               <div className="left-col space-y-6 md:space-y-8">
                 <FadeIn delay={100} duration={800}>
-                  <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#D4AF37]/20 bg-[#D4AF37]/5 text-xs md:text-sm tracking-widest uppercase font-semibold text-[#D4AF37] select-none text-shadow-premium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
-                    Founder: Imran Ali
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2.5 sm:gap-3.5">
+                    <div className="inline-flex items-center gap-3 pl-1.5 pr-4 py-1.5 rounded-full border border-[#D4AF37]/25 bg-[#D4AF37]/10 text-xs sm:text-sm tracking-wide font-semibold text-[#D4AF37] select-none text-shadow-premium">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-[#D4AF37]/60 bg-[#0A1120] flex items-center justify-center shrink-0 shadow-sm">
+                        {appData.leadership?.imranAliPhoto ? (
+                          <img src={appData.leadership.imranAliPhoto} alt="Imran Ali" className="w-full h-full object-cover" />
+                        ) : (
+                          <span className="text-[11px] font-bold text-[#D4AF37]">IA</span>
+                        )}
+                      </div>
+                      <span className="text-sm sm:text-base font-medium">Founder: Imran Ali</span>
+                    </div>
+
+                    <div className="inline-flex items-center gap-3 pl-1.5 pr-4 py-1.5 rounded-full border border-[#D4AF37]/25 bg-[#D4AF37]/10 text-xs sm:text-sm tracking-wide font-semibold text-[#D4AF37] select-none text-shadow-premium">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-[#D4AF37]/60 bg-[#0A1120] flex items-center justify-center shrink-0 shadow-sm">
+                        {appData.leadership?.shaikhMahfoozPhoto ? (
+                          <img src={appData.leadership.shaikhMahfoozPhoto} alt="Shaikh Mahfooz" className="w-full h-full object-cover" />
+                        ) : (
+                          <span className="text-[11px] font-bold text-[#D4AF37]">SM</span>
+                        )}
+                      </div>
+                      <span className="text-sm sm:text-base font-medium">Chairman: Shaikh Mahfooz</span>
+                    </div>
                   </div>
                 </FadeIn>
 
@@ -410,15 +442,67 @@ export default function App() {
           <FadeIn>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">About & Location</h2>
             
-            <div className="mb-6 p-4 rounded-2xl bg-[#D4AF37]/5 border border-[#D4AF37]/10 max-w-lg">
-              <span className="text-xs uppercase tracking-[0.2em] text-[#D4AF37]/80 block mb-1">Visionary Leadership</span>
-              <p className="text-white text-base md:text-lg font-bold">
-                Founder: Imran Ali
-              </p>
+            <div className="mb-8 max-w-xl space-y-4">
+              <span className="text-xs uppercase tracking-[0.2em] text-[#D4AF37] font-semibold block">
+                Leadership
+              </span>
+              
+              <div className="flex flex-col gap-4">
+                {/* Imran Ali Card */}
+                <div className="p-5 sm:p-6 rounded-2xl bg-[#D4AF37]/5 border border-[#D4AF37]/25 hover:border-[#D4AF37]/40 transition-all flex items-center gap-5 shadow-lg">
+                  <div 
+                    className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-[#D4AF37]/50 p-1 bg-[#0A1120] shrink-0 overflow-hidden shadow-xl shadow-[#D4AF37]/10 flex items-center justify-center select-none"
+                  >
+                    {appData.leadership?.imranAliPhoto ? (
+                      <img 
+                        src={appData.leadership.imranAliPhoto} 
+                        alt="Imran Ali" 
+                        className="w-full h-full rounded-full object-cover"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <div className="w-full h-full rounded-full bg-gradient-to-br from-[#D4AF37]/25 via-[#0A1120] to-[#D4AF37]/10 flex flex-col items-center justify-center text-[#D4AF37]">
+                        <span className="text-xl sm:text-2xl font-bold tracking-wider">IA</span>
+                        <span className="text-[9px] uppercase tracking-widest text-[#D4AF37]/80 font-medium mt-0.5">
+                          Founder
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-white text-lg sm:text-xl font-bold tracking-tight">Imran Ali</h3>
+                    <p className="text-sm sm:text-base text-[#D4AF37] mt-1 font-medium leading-snug">
+                      Founder — Real Estate &amp; Business Development
+                    </p>
+                  </div>
+                </div>
+
+                {/* Shaikh Mahfooz Card */}
+                <div className="p-5 sm:p-6 rounded-2xl bg-[#D4AF37]/5 border border-[#D4AF37]/25 hover:border-[#D4AF37]/40 transition-all flex items-center gap-5 shadow-lg">
+                  <div 
+                    className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-[#D4AF37]/50 p-1 bg-[#0A1120] shrink-0 overflow-hidden shadow-xl shadow-[#D4AF37]/10 flex items-center justify-center select-none"
+                  >
+                    <div className="w-full h-full rounded-full bg-gradient-to-br from-[#D4AF37]/25 via-[#0A1120] to-[#D4AF37]/10 flex flex-col items-center justify-center text-[#D4AF37]">
+                      <span className="text-xl sm:text-2xl font-bold tracking-wider">SM</span>
+                      <span className="text-[9px] uppercase tracking-widest text-[#D4AF37]/80 font-medium mt-0.5">
+                        Chairman
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-white text-lg sm:text-xl font-bold tracking-tight">Shaikh Mahfooz</h3>
+                    <p className="text-sm sm:text-base text-[#D4AF37] mt-1 font-medium leading-snug">
+                      Chairman — Land &amp; Farmland Ventures
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <p className="text-gray-400 mb-8 max-w-lg leading-relaxed text-sm md:text-base">
-              SIMNANI GROUPS, established under the leadership of founder Imran Ali, operates from its central executive office in Currency Tower, Raipur. We are strategically aligned to spearhead growth and premium innovations across diverse real estate and high-impact industries.
+              SIMNANI GROUPS, under the visionary leadership of Imran Ali and Shaikh Mahfooz, operates from its central executive office in Currency Tower, Raipur. We are strategically aligned to spearhead growth and premium innovations across diverse real estate, farmland ventures, and high-impact industries.
             </p>
             <div className="space-y-4">
               <div className="flex items-start gap-4">

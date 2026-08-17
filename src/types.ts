@@ -21,10 +21,16 @@ export interface SocialLinks {
   email: string;
 }
 
+export interface LeadershipPhotos {
+  imranAliPhoto?: string;
+  shaikhMahfoozPhoto?: string;
+}
+
 export interface AppData {
   logoUrl: string;
   heroBackground: string;
   heroBackgroundType: 'video' | 'image';
   ventures: Venture[];
   socialLinks: SocialLinks;
+  leadership?: LeadershipPhotos;
 }
