@@ -15,7 +15,6 @@ import { AppData } from './types';
 import logoImg from '../Images/IMG_20260627_132324.jpg';
 import officeImg from '../Images/87a643714e3f10db3fb44a5c4793d5b2.jpg';
 import estatesWatermark from '../Images/IMG_20260627_143308.jpg';
-import imranPhoto from '../Images/WhatsApp Image 2026-08-08 at 4.52.18 AM.jpeg';
 
 const ICON_MAP: Record<string, any> = {
   Home,
@@ -56,7 +55,7 @@ const DEFAULT_DATA: AppData = {
     email: "simnanigroupsraipur@gmail.com"
   },
   leadership: {
-    imranAliPhoto: imranPhoto,
+    imranAliPhoto: '',
     shaikhMahfoozPhoto: ''
   }
 };
@@ -104,12 +103,9 @@ export default function App() {
           parsed.logoUrl = logoImg;
           hasChanges = true;
         }
-        // Migration: Ensure default photos are populated if currently empty
-        if (!parsed.leadership) {
-          parsed.leadership = { imranAliPhoto: imranPhoto, shaikhMahfoozPhoto: '' };
-          hasChanges = true;
-        } else if (!parsed.leadership.imranAliPhoto || parsed.leadership.imranAliPhoto === '') {
-          parsed.leadership.imranAliPhoto = imranPhoto;
+        // Ensure imranAliPhoto is cleared
+        if (parsed.leadership?.imranAliPhoto) {
+          parsed.leadership.imranAliPhoto = '';
           hasChanges = true;
         }
         if (hasChanges) {
@@ -305,7 +301,7 @@ export default function App() {
                           <span className="text-[11px] font-bold text-[#D4AF37]">SM</span>
                         )}
                       </div>
-                      <span className="text-sm sm:text-base font-medium">Chairman: Shaikh Mahfooz</span>
+                      <span className="text-sm sm:text-base font-medium">Co-Founder: Shaikh Mahfooz</span>
                     </div>
                   </div>
                 </FadeIn>
@@ -453,21 +449,12 @@ export default function App() {
                   <div 
                     className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-[#D4AF37]/50 p-1 bg-[#0A1120] shrink-0 overflow-hidden shadow-xl shadow-[#D4AF37]/10 flex items-center justify-center select-none"
                   >
-                    {appData.leadership?.imranAliPhoto ? (
-                      <img 
-                        src={appData.leadership.imranAliPhoto} 
-                        alt="Imran Ali" 
-                        className="w-full h-full rounded-full object-cover"
-                        referrerPolicy="no-referrer"
-                      />
-                    ) : (
-                      <div className="w-full h-full rounded-full bg-gradient-to-br from-[#D4AF37]/25 via-[#0A1120] to-[#D4AF37]/10 flex flex-col items-center justify-center text-[#D4AF37]">
-                        <span className="text-xl sm:text-2xl font-bold tracking-wider">IA</span>
-                        <span className="text-[9px] uppercase tracking-widest text-[#D4AF37]/80 font-medium mt-0.5">
-                          Founder
-                        </span>
-                      </div>
-                    )}
+                    <div className="w-full h-full rounded-full bg-gradient-to-br from-[#D4AF37]/25 via-[#0A1120] to-[#D4AF37]/10 flex flex-col items-center justify-center text-[#D4AF37]">
+                      <span className="text-xl sm:text-2xl font-bold tracking-wider">IA</span>
+                      <span className="text-[9px] uppercase tracking-widest text-[#D4AF37]/80 font-medium mt-0.5">
+                        Founder
+                      </span>
+                    </div>
                   </div>
 
                   <div className="flex-1 min-w-0">
@@ -486,7 +473,7 @@ export default function App() {
                     <div className="w-full h-full rounded-full bg-gradient-to-br from-[#D4AF37]/25 via-[#0A1120] to-[#D4AF37]/10 flex flex-col items-center justify-center text-[#D4AF37]">
                       <span className="text-xl sm:text-2xl font-bold tracking-wider">SM</span>
                       <span className="text-[9px] uppercase tracking-widest text-[#D4AF37]/80 font-medium mt-0.5">
-                        Chairman
+                        Co-Founder
                       </span>
                     </div>
                   </div>
@@ -494,7 +481,7 @@ export default function App() {
                   <div className="flex-1 min-w-0">
                     <h3 className="text-white text-lg sm:text-xl font-bold tracking-tight">Shaikh Mahfooz</h3>
                     <p className="text-sm sm:text-base text-[#D4AF37] mt-1 font-medium leading-snug">
-                      Chairman — Land &amp; Farmland Ventures
+                      Co-Founder — Land &amp; Farmland Ventures
                     </p>
                   </div>
                 </div>
