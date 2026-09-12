@@ -32,7 +32,7 @@ const DEFAULT_DATA: AppData = {
       description: "Premium real estate developments and plotted communities designed for modern living.",
       phone: "+91 9407715886",
       whatsapp: "https://wa.me/919407715886",
-      website: "https://simnaniestates.netlify.app",
+      website: "https://www.simnaniestates.com/",
       iconName: "Home",
       additionalContacts: [
         { phone: "+91 7869829723", whatsapp: "https://wa.me/917869829723" }
@@ -85,8 +85,8 @@ export default function App() {
               hasChanges = true;
             }
             if (v.name === "Simnani Estates") {
-              if (v.website === "https://simnaniestates.com" || !v.website || v.website.includes("simnaniestates.com")) {
-                v.website = "https://simnaniestates.netlify.app";
+              if (v.website !== "https://www.simnaniestates.com/") {
+                v.website = "https://www.simnaniestates.com/";
                 hasChanges = true;
               }
               if (v.watermarkImage || v.backgroundImage) {

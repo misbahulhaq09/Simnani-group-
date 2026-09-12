@@ -340,7 +340,7 @@ export default function VentureCard({ venture, index }: VentureCardProps) {
             ))}
             
             <a 
-              href={venture.website}
+              href={isEstates ? (venture.website || "https://www.simnaniestates.com/") : venture.website}
               target="_blank"
               rel="noopener noreferrer"
               className="glass-button flex items-center justify-center gap-3 text-white py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-sm tracking-wide"
