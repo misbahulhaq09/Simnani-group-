@@ -72,6 +72,18 @@ export default function App() {
       setIsLoading(false);
     }, 2000);
 
+    // Immediate cleanup of any deprecated netlify URLs in localStorage
+    try {
+      ['simnani_app_data', 'simnani_app_data_v2'].forEach((k) => {
+        const raw = localStorage.getItem(k);
+        if (raw && raw.includes('netlify')) {
+          localStorage.setItem(k, raw.replace(/https?:\/\/[a-zA-Z0-9.-]*netlify\.app\/?/g, 'https://www.simnaniestates.com/'));
+        }
+      });
+    } catch (e) {
+      // ignore
+    }
+
     const savedData = localStorage.getItem('simnani_app_data_v2');
     if (savedData) {
       try {
@@ -79,12 +91,12 @@ export default function App() {
         // Migration: Rename Greens to Big Land if found in saved data
         let hasChanges = false;
         if (parsed.ventures) {
-          parsed.ventures = parsed.ventures.map((v: any) => {
+          parsed.ventures = parsed.ventures.map((v: any, idx: number) => {
             if (v.name === "Simnani Greens") {
               v.name = "Simnani Big Land";
               hasChanges = true;
             }
-            if (v.name === "Simnani Estates") {
+            if (idx === 0 || v.name.toLowerCase().includes("estate") || (v.website && v.website.includes("netlify"))) {
               if (v.website !== "https://www.simnaniestates.com/") {
                 v.website = "https://www.simnaniestates.com/";
                 hasChanges = true;
@@ -119,6 +131,14 @@ export default function App() {
   }, []);
 
   const handleSaveData = (newData: AppData) => {
+    if (newData.ventures) {
+      newData.ventures = newData.ventures.map((v, idx) => {
+        if (idx === 0 || v.name.toLowerCase().includes('estate')) {
+          return { ...v, website: 'https://www.simnaniestates.com/' };
+        }
+        return v;
+      });
+    }
     setAppData(newData);
     localStorage.setItem('simnani_app_data_v2', JSON.stringify(newData));
   };

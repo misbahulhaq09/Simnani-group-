@@ -131,8 +131,13 @@ interface VentureCardProps {
 
 export default function VentureCard({ venture, index }: VentureCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const isEstates = venture.name.toLowerCase().includes('estates');
+  const isEstates = index === 0 || venture.name.toLowerCase().includes('estate');
   const categories = isEstates ? ESTATE_CATEGORIES : BIGLAND_CATEGORIES;
+
+  // Ensure Simnani Estates always points to https://www.simnaniestates.com/
+  const cleanWebsite = isEstates 
+    ? "https://www.simnaniestates.com/" 
+    : (venture.website && !venture.website.includes('netlify') ? venture.website : "https://www.simnaniestates.com/");
 
   // Generate customized WhatsApp text for "Learn More"
   const getWhatsAppLearnMoreLink = (categoryTitle: string) => {
@@ -340,15 +345,9 @@ export default function VentureCard({ venture, index }: VentureCardProps) {
             ))}
             
             <a 
-              href={isEstates ? "https://www.simnaniestates.com/" : (venture.website || "#")}
+              href={cleanWebsite}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={(e) => {
-                if (isEstates) {
-                  e.preventDefault();
-                  window.open("https://www.simnaniestates.com/", "_blank", "noopener,noreferrer");
-                }
-              }}
               className="glass-button flex items-center justify-center gap-3 text-white py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-sm tracking-wide cursor-pointer select-none"
             >
               <Globe size={18} strokeWidth={1.5} />
