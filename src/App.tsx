@@ -5,7 +5,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'motion/react';
-import { MessageSquare, Mail, MapPin, Home, Leaf, Globe, Menu, X, Settings, Instagram, Building2, Camera, Upload, User } from 'lucide-react';
+import { MessageSquare, Mail, MapPin, Home, Leaf, Globe, Menu, X, Settings, Instagram, Building2, Camera, Upload, User, ArrowRight } from 'lucide-react';
 import AnimatedHeading from './components/AnimatedHeading';
 import FadeIn from './components/FadeIn';
 import AdminPanel from './components/AdminPanel';
@@ -378,11 +378,26 @@ export default function App() {
             <FadeIn delay={200} className="h-full">
               <div className="bg-[#0A1120] border border-[#D4AF37]/20 rounded-3xl p-6 md:p-8 h-full shadow-xl hover:border-[#D4AF37]/40 transition-all duration-300 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full blur-2xl group-hover:bg-[#D4AF37]/10 transition-all pointer-events-none"></div>
-                <div className="flex items-center gap-3.5 mb-6">
-                  <div className="p-3 rounded-2xl bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20">
-                    <Building2 size={24} />
+                <div className="flex items-center justify-between gap-3.5 mb-6">
+                  <div className="flex items-center gap-3.5">
+                    <div className="p-3 rounded-2xl bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20">
+                      <Building2 size={24} />
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-bold text-white tracking-wide">Simnani Estates</h3>
                   </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-white tracking-wide">Simnani Estates</h3>
+                  <a
+                    href="https://www.simnaniestates.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.open("https://www.simnaniestates.com/", "_blank", "noopener,noreferrer");
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-[#D4AF37]/40 bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 text-[#D4AF37] text-xs font-bold tracking-wider transition-all"
+                  >
+                    <span>Visit Website</span>
+                    <ArrowRight size={12} />
+                  </a>
                 </div>
                 <ul className="space-y-3.5">
                   {[

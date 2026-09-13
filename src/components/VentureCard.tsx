@@ -340,10 +340,16 @@ export default function VentureCard({ venture, index }: VentureCardProps) {
             ))}
             
             <a 
-              href={isEstates ? (venture.website || "https://www.simnaniestates.com/") : venture.website}
+              href={isEstates ? "https://www.simnaniestates.com/" : (venture.website || "#")}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-button flex items-center justify-center gap-3 text-white py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-sm tracking-wide"
+              onClick={(e) => {
+                if (isEstates) {
+                  e.preventDefault();
+                  window.open("https://www.simnaniestates.com/", "_blank", "noopener,noreferrer");
+                }
+              }}
+              className="glass-button flex items-center justify-center gap-3 text-white py-3 md:py-4 rounded-xl md:rounded-2xl font-bold text-sm tracking-wide cursor-pointer select-none"
             >
               <Globe size={18} strokeWidth={1.5} />
               EXPLORE PROJECTS
