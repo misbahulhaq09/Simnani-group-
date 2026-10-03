@@ -180,7 +180,7 @@ export default function App() {
           ) : (
             <img 
               src={appData.heroBackground} 
-              alt="Simnani Groups Premium Real Estate and Agriculture Developments in Raipur" 
+              alt="Simnani Group Premium Real Estate and Agriculture Developments in Raipur" 
               width={1920}
               height={1080}
               loading="eager"
@@ -199,7 +199,7 @@ export default function App() {
               <div className="flex items-center transition-transform hover:scale-105 duration-300">
                 <img 
                   src={appData.logoUrl || logoImg} 
-                  alt="Simnani Groups Logo - Premium Real Estate & Agriculture Investments in Chhattisgarh" 
+                  alt="Simnani Group Logo - Premium Real Estate & Agriculture Investments in Chhattisgarh" 
                   width={200}
                   height={144}
                   fetchPriority="high"
@@ -327,7 +327,7 @@ export default function App() {
                 </FadeIn>
 
                 <AnimatedHeading 
-                  text={"Simnani Groups –\nBuilding Opportunities\nAcross Industries"}
+                  text={"Simnani Group –\nBuilding Opportunities\nAcross Industries"}
                   className="text-[7.5vw] xs:text-[6.5vw] sm:text-[44px] md:text-6xl lg:text-[68px] font-bold mb-4 leading-[1.1] sm:leading-[1.05] tracking-tight text-shadow-premium"
                   initialDelay={200}
                   charDelay={25}
@@ -524,7 +524,7 @@ export default function App() {
             </div>
 
             <p className="text-gray-400 mb-8 max-w-lg leading-relaxed text-sm md:text-base">
-              SIMNANI GROUPS, under the visionary leadership of Imran Ali and Shaikh Mahfooz, operates from its central executive office in Currency Tower, Raipur. We are strategically aligned to spearhead growth and premium innovations across diverse real estate, farmland ventures, and high-impact industries.
+              SIMNANI GROUP, under the visionary leadership of Imran Ali and Shaikh Mahfooz, operates from its central executive office in Currency Tower, Raipur. We are strategically aligned to spearhead growth and premium innovations across diverse real estate, farmland ventures, and high-impact industries.
             </p>
             <div className="space-y-4">
               <div className="flex items-start gap-4">
@@ -552,7 +552,7 @@ export default function App() {
             <FadeIn delay={300} className="w-full h-[250px] sm:h-[300px] rounded-3xl overflow-hidden border border-[#D4AF37]/20 shadow-2xl relative group">
               <img 
                 src={officeImg} 
-                alt="Simnani Groups Executive Office at Currency Tower, Raipur, Chhattisgarh" 
+                alt="Simnani Group Executive Office at Currency Tower, Raipur, Chhattisgarh" 
                 width={600}
                 height={300}
                 loading="lazy"
@@ -588,7 +588,7 @@ export default function App() {
             <div className="mb-6">
               <img 
                 src={appData.logoUrl || logoImg} 
-                alt="Simnani Groups Logo - Premium Real Estate Developments" 
+                alt="Simnani Group Logo - Premium Real Estate Developments" 
                 width={150}
                 height={128}
                 loading="lazy"
