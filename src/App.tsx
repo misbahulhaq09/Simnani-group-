@@ -327,11 +327,17 @@ export default function App() {
                 </FadeIn>
 
                 <AnimatedHeading 
-                  text={"Simnani Group –\nBuilding Opportunities\nAcross Industries"}
-                  className="text-[7.5vw] xs:text-[6.5vw] sm:text-[44px] md:text-6xl lg:text-[68px] font-bold mb-4 leading-[1.1] sm:leading-[1.05] tracking-tight text-shadow-premium"
+                  text={"Simnani Group"}
+                  className="text-[8vw] xs:text-[7vw] sm:text-[48px] md:text-6xl lg:text-[72px] font-bold mb-3 leading-[1.05] tracking-tight text-shadow-premium"
                   initialDelay={200}
                   charDelay={25}
                 />
+                
+                <FadeIn delay={550} duration={800}>
+                  <p className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] font-semibold text-white/95 mb-4 leading-snug tracking-tight text-shadow-premium">
+                    Building Opportunities Across Industries
+                  </p>
+                </FadeIn>
                 
                 <FadeIn delay={800} duration={1000}>
                   <p className="text-base sm:text-lg md:text-2xl text-white/75 max-w-[580px] leading-relaxed font-light text-shadow-premium">
