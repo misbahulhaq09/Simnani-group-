@@ -4,12 +4,10 @@
  */
 
 import { useState, useEffect, useRef } from 'react';
-import { AnimatePresence } from 'motion/react';
 import { MessageSquare, Mail, MapPin, Home, Leaf, Globe, Menu, X, Settings, Instagram, Building2, Camera, Upload, User, ArrowRight } from 'lucide-react';
 import AnimatedHeading from './components/AnimatedHeading';
 import FadeIn from './components/FadeIn';
 import AdminPanel from './components/AdminPanel';
-import LoadingOverlay from './components/LoadingOverlay';
 import VentureCard from './components/VentureCard';
 import { AppData } from './types';
 import logoImg from '../Images/IMG_20260627_132324.jpg';
@@ -41,13 +39,10 @@ const DEFAULT_DATA: AppData = {
     {
       name: "Simnani Big Land",
       description: "Sustainable agriculture projects and modern farming initiatives for long-term growth.",
-      phone: "+91 9993512100",
-      whatsapp: "https://wa.me/919993512100",
+      phone: "+91 7869829723",
+      whatsapp: "https://wa.me/917869829723",
       website: "https://simnanibigland.com",
       iconName: "Leaf",
-      additionalContacts: [
-        { phone: "+91 7869829723", whatsapp: "https://wa.me/917869829723" }
-      ],
     }
   ],
   socialLinks: {
@@ -64,14 +59,8 @@ export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [appData, setAppData] = useState<AppData>(DEFAULT_DATA);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate resource initialization
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
     // Immediate cleanup of any deprecated netlify URLs in localStorage
     try {
       ['simnani_app_data', 'simnani_app_data_v2'].forEach((k) => {
@@ -150,10 +139,6 @@ export default function App() {
 
   return (
     <div className="bg-[#050B18] text-white font-sans scroll-smooth overflow-x-hidden relative">
-      <AnimatePresence>
-        {isLoading && <LoadingOverlay />}
-      </AnimatePresence>
-
       <AdminPanel 
         data={appData} 
         onSave={handleSaveData} 
@@ -194,26 +179,26 @@ export default function App() {
         {/* Content Overlay */}
         <div className="relative z-20 flex flex-col flex-1">
           {/* Navbar */}
-          <header className="px-5 xs:px-6 md:px-12 lg:px-16 pt-6 md:pt-8 w-full flex justify-center relative z-50">
-            <nav className="liquid-glass rounded-2xl px-5 xs:px-8 py-5 md:py-6 w-full flex justify-between items-center max-w-7xl border border-[#D4AF37]/20 shadow-[0_0_20px_rgba(212,175,55,0.05)]">
-              <div className="flex items-center transition-transform hover:scale-105 duration-300">
+          <header className="px-4 md:px-12 lg:px-16 pt-4 md:pt-6 w-full flex justify-center relative z-50">
+            <nav className="liquid-glass rounded-xl px-4 md:px-8 py-2.5 md:py-3 w-full flex justify-between items-center max-w-7xl border border-[#D4AF37]/20 shadow-[0_4px_30px_rgba(0,0,0,0.3)]">
+              <div className="flex items-center">
                 <img 
                   src={appData.logoUrl || logoImg} 
                   alt="Simnani Group Logo - Premium Real Estate & Agriculture Investments in Chhattisgarh" 
                   width={200}
                   height={144}
                   fetchPriority="high"
-                  className="h-20 xs:h-24 md:h-36 w-auto object-contain logo-sharpness filter drop-shadow-[0_4px_25px_rgba(212,175,55,0.25)]" 
+                  className="h-12 md:h-16 w-auto object-contain logo-sharpness filter drop-shadow-[0_4px_25px_rgba(212,175,55,0.25)]" 
                   referrerPolicy="no-referrer"
                 />
               </div>
               
-              <div className="hidden md:flex items-center justify-center gap-10">
+              <div className="hidden md:flex items-center justify-center gap-10 lg:gap-12">
                 {["Ventures", "Services", "About", "Contact"].map((link) => (
                   <a
                     key={link}
                     href={`#${link.toLowerCase()}`}
-                    className="text-sm font-medium text-white/80 hover:text-[#D4AF37] transition-all duration-300 tracking-wide text-shadow-premium"
+                    className="relative text-[13px] font-medium uppercase tracking-[0.15em] text-white/80 hover:text-[#D4AF37] transition-colors duration-300 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-[#D4AF37] after:transition-all after:duration-300 hover:after:w-full"
                   >
                     {link}
                   </a>
@@ -253,7 +238,7 @@ export default function App() {
                 {/* Desktop Call to Action */}
                 <a 
                   href="#contact"
-                  className="hidden md:inline-flex text-xs tracking-widest text-[#D4AF37] border border-[#D4AF37]/30 hover:border-[#D4AF37] px-4 py-2 rounded-xl transition-all duration-300 hover:bg-[#D4AF37]/10"
+                  className="hidden md:inline-flex text-xs font-semibold tracking-widest text-[#050B18] bg-[#D4AF37] hover:bg-[#e6c24f] px-5 py-2.5 rounded-lg transition-colors duration-300"
                 >
                   GET IN TOUCH
                 </a>
@@ -300,31 +285,6 @@ export default function App() {
           <div className="flex-1 flex flex-col justify-center md:justify-end px-5 xs:px-6 md:px-12 lg:px-16 pb-4 md:pb-32 pt-28 md:pt-0">
             <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-8 md:gap-12 lg:gap-16 items-end w-full max-w-7xl mx-auto">
               <div className="left-col space-y-6 md:space-y-8">
-                <FadeIn delay={100} duration={800}>
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2.5 sm:gap-3.5">
-                    <div className="inline-flex items-center gap-3 pl-1.5 pr-4 py-1.5 rounded-full border border-[#D4AF37]/25 bg-[#D4AF37]/10 text-xs sm:text-sm tracking-wide font-semibold text-[#D4AF37] select-none text-shadow-premium">
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-[#D4AF37]/60 bg-[#0A1120] flex items-center justify-center shrink-0 shadow-sm">
-                        {appData.leadership?.imranAliPhoto ? (
-                          <img src={appData.leadership.imranAliPhoto} alt="Imran Ali" className="w-full h-full object-cover" />
-                        ) : (
-                          <span className="text-[11px] font-bold text-[#D4AF37]">IA</span>
-                        )}
-                      </div>
-                      <span className="text-sm sm:text-base font-medium">Founder: Imran Ali</span>
-                    </div>
-
-                    <div className="inline-flex items-center gap-3 pl-1.5 pr-4 py-1.5 rounded-full border border-[#D4AF37]/25 bg-[#D4AF37]/10 text-xs sm:text-sm tracking-wide font-semibold text-[#D4AF37] select-none text-shadow-premium">
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-[#D4AF37]/60 bg-[#0A1120] flex items-center justify-center shrink-0 shadow-sm">
-                        {appData.leadership?.shaikhMahfoozPhoto ? (
-                          <img src={appData.leadership.shaikhMahfoozPhoto} alt="Shaikh Mahfooz" className="w-full h-full object-cover" />
-                        ) : (
-                          <span className="text-[11px] font-bold text-[#D4AF37]">SM</span>
-                        )}
-                      </div>
-                      <span className="text-sm sm:text-base font-medium">Co-Founder: Shaikh Mahfooz</span>
-                    </div>
-                  </div>
-                </FadeIn>
 
                 <AnimatedHeading 
                   text={"Simnani Group"}
@@ -505,32 +465,11 @@ export default function App() {
                     </p>
                   </div>
                 </div>
-
-                {/* Shaikh Mahfooz Card */}
-                <div className="p-5 sm:p-6 rounded-2xl bg-[#D4AF37]/5 border border-[#D4AF37]/25 hover:border-[#D4AF37]/40 transition-all flex items-center gap-5 shadow-lg">
-                  <div 
-                    className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-[#D4AF37]/50 p-1 bg-[#0A1120] shrink-0 overflow-hidden shadow-xl shadow-[#D4AF37]/10 flex items-center justify-center select-none"
-                  >
-                    <div className="w-full h-full rounded-full bg-gradient-to-br from-[#D4AF37]/25 via-[#0A1120] to-[#D4AF37]/10 flex flex-col items-center justify-center text-[#D4AF37]">
-                      <span className="text-xl sm:text-2xl font-bold tracking-wider">SM</span>
-                      <span className="text-[9px] uppercase tracking-widest text-[#D4AF37]/80 font-medium mt-0.5">
-                        Co-Founder
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-white text-lg sm:text-xl font-bold tracking-tight">Shaikh Mahfooz</h3>
-                    <p className="text-sm sm:text-base text-[#D4AF37] mt-1 font-medium leading-snug">
-                      Co-Founder — Land &amp; Farmland Ventures
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
 
             <p className="text-gray-400 mb-8 max-w-lg leading-relaxed text-sm md:text-base">
-              SIMNANI GROUP, under the visionary leadership of Imran Ali and Shaikh Mahfooz, operates from its central executive office in Currency Tower, Raipur. We are strategically aligned to spearhead growth and premium innovations across diverse real estate, farmland ventures, and high-impact industries.
+              SIMNANI GROUP operates from its central executive office in Currency Tower, Raipur. We are strategically aligned to spearhead growth and premium innovations across diverse real estate, farmland ventures, and high-impact industries.
             </p>
             <div className="space-y-4">
               <div className="flex items-start gap-4">
