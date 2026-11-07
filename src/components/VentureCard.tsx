@@ -14,12 +14,17 @@ import {
   Trees, 
   Fish, 
   Warehouse, 
-  ArrowRight,
-  ShieldCheck,
-  Zap,
-  Settings,
-  Flame,
-  Sparkles
+  ArrowRight, 
+  ShieldCheck, 
+  Zap, 
+  Settings, 
+  Flame, 
+  Sparkles,
+  Briefcase,
+  Users,
+  HardHat,
+  Truck,
+  ClipboardList
 } from 'lucide-react';
 import { Venture } from '../types';
 
@@ -36,8 +41,6 @@ interface CategoryItem {
   subcategories?: CategorySubItem[];
 }
 
-// Let's create custom inline elements/SVG fallbacks or use Lucide icons
-// We'll define specific icons for each category
 const ESTATE_CATEGORIES: CategoryItem[] = [
   {
     id: 'residential',
@@ -68,6 +71,65 @@ const ESTATE_CATEGORIES: CategoryItem[] = [
       { name: 'Heavy Industrial Land', desc: 'Heavy fabrication, smelting, intensive scale operations' },
       { name: 'Special Industrial Land', desc: 'SEZs, hazardous material processing, specialized chemical parks' }
     ]
+  },
+  {
+    id: 'bigland',
+    title: 'Agricultural & Farm Land (Big Land)',
+    description: 'Expansive fertile farm lands, sustainable agro projects, polyhouse/greenhouse installations, and plantation investments.',
+    icon: Leaf,
+    subcategories: [
+      { name: 'Agricultural Crop Land', desc: 'Fertile acreage with natural water table and irrigation' },
+      { name: 'Organic & Plantation Farming', desc: 'Timber, horticulture orchards, and organic farms' },
+      { name: 'Polyhouse & Greenhouse', desc: 'Climate-controlled high-yield commercial installations' },
+      { name: 'Dairy & Aquaculture Farms', desc: 'Modern mechanized farm setups and bio-floc ponds' }
+    ]
+  }
+];
+
+const WORKS_CATEGORIES: CategoryItem[] = [
+  {
+    id: 'manpower',
+    title: 'Workforce & Manpower Hiring',
+    description: 'End-to-end recruitment and verified supply of reliable workforce, permanent employees, and contractual personnel.',
+    icon: Users,
+    subcategories: [
+      { name: 'On-Demand Labor', desc: 'Skilled, semi-skilled, and general manpower' },
+      { name: 'Corporate Staffing', desc: 'Admin, executive, accounting, and sales professionals' }
+    ]
+  },
+  {
+    id: 'contractors',
+    title: 'Contractor Work Orders & Projects',
+    description: 'Turnkey project execution, civil works, site preparation, and commercial contractor partnerships.',
+    icon: HardHat,
+    subcategories: [
+      { name: 'Civil & Building Works', desc: 'Site construction, renovations, and structural works' },
+      { name: 'Maintenance & Facility', desc: 'Annual maintenance and industrial upkeep contracts' }
+    ]
+  },
+  {
+    id: 'technical',
+    title: 'Skilled Labor & Technical Staff',
+    description: 'Certified electricians, machine operators, fabricators, welders, plumbers, and industrial technicians.',
+    icon: Settings,
+  },
+  {
+    id: 'industrial_staff',
+    title: 'Industrial & Commercial Staffing',
+    description: 'Specialized workforce tailored for factories, warehouses, distribution centers, and retail operations.',
+    icon: Factory,
+  },
+  {
+    id: 'supplies',
+    title: 'Vendor & Material Supply',
+    description: 'Procurement networks, construction raw materials, industrial consumables, and equipment leasing.',
+    icon: Truck,
+  },
+  {
+    id: 'opportunities',
+    title: 'Job Openings & Freelance Contracts',
+    description: 'Direct bridge connecting active job seekers, freelancers, and local trades with genuine work orders.',
+    icon: ClipboardList,
   }
 ];
 
@@ -99,8 +161,6 @@ const BIGLAND_CATEGORIES: CategoryItem[] = [
   {
     id: 'dairy',
     title: 'Dairy Farming',
-    // We can render a fallback if Milk is not resolved, but Milk is very standard. 
-    // To be absolutely safe, let's use a custom path or a custom icon. Let's design a custom icon component or use a solid Lucide icon like Sprout/Sparkles
     description: 'Mechanized modern dairy farms producing premium-grade organic milk and pasteurized products.',
     icon: Sparkles, 
   },
@@ -132,7 +192,8 @@ interface VentureCardProps {
 export default function VentureCard({ venture, index }: VentureCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const isEstates = index === 0 || venture.name.toLowerCase().includes('estate');
-  const categories = isEstates ? ESTATE_CATEGORIES : BIGLAND_CATEGORIES;
+  const isWorks = venture.name.toLowerCase().includes('work');
+  const categories = isWorks ? WORKS_CATEGORIES : (isEstates ? ESTATE_CATEGORIES : BIGLAND_CATEGORIES);
 
   // Ensure Simnani Estates always points to https://www.simnaniestates.com/
   const cleanWebsite = isEstates 
@@ -199,7 +260,9 @@ export default function VentureCard({ venture, index }: VentureCardProps) {
         {/* Card Header */}
         <div className="relative z-10 mb-6">
           <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-start text-[#D4AF37]/60 mb-6 group-hover:text-[#D4AF37] transition-all duration-500">
-            {isEstates ? (
+            {isWorks ? (
+              <Briefcase size={32} strokeWidth={1} />
+            ) : isEstates ? (
               <Home size={32} strokeWidth={1} />
             ) : (
               <Leaf size={32} strokeWidth={1} />
@@ -283,7 +346,7 @@ export default function VentureCard({ venture, index }: VentureCardProps) {
                               {cat.description}
                             </p>
 
-                            {/* Optional Nested Subcategories for Industrial Land */}
+                            {/* Optional Nested Subcategories */}
                             {cat.subcategories && (
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-3 mt-3 border-t border-white/5">
                                 {cat.subcategories.map((sub, sIdx) => (

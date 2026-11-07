@@ -3,8 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useRef } from 'react';
-import { MessageSquare, Mail, MapPin, Home, Leaf, Globe, Menu, X, Settings, Instagram, Building2, Camera, Upload, User, ArrowRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { 
+  MessageSquare, 
+  Mail, 
+  MapPin, 
+  Home, 
+  Leaf, 
+  Globe, 
+  Menu, 
+  X, 
+  Settings, 
+  Instagram, 
+  Building2, 
+  ArrowRight,
+  Briefcase
+} from 'lucide-react';
 import AnimatedHeading from './components/AnimatedHeading';
 import FadeIn from './components/FadeIn';
 import AdminPanel from './components/AdminPanel';
@@ -12,12 +26,13 @@ import VentureCard from './components/VentureCard';
 import { AppData } from './types';
 import logoImg from '../Images/IMG_20260627_132324.jpg';
 import officeImg from '../Images/87a643714e3f10db3fb44a5c4793d5b2.jpg';
-import estatesWatermark from '../Images/IMG_20260627_143308.jpg';
 
 const ICON_MAP: Record<string, any> = {
   Home,
+  Building2,
   Leaf,
-  Globe
+  Globe,
+  Briefcase
 };
 
 const DEFAULT_DATA: AppData = {
@@ -27,7 +42,7 @@ const DEFAULT_DATA: AppData = {
   ventures: [
     {
       name: "Simnani Estates",
-      description: "Premium real estate developments and plotted communities designed for modern living.",
+      description: "Premium real estate developments, residential townships, commercial spaces, industrial zones, and integrated agricultural big land projects.",
       phone: "+91 9407715886",
       whatsapp: "https://wa.me/919407715886",
       website: "https://www.simnaniestates.com/",
@@ -37,12 +52,15 @@ const DEFAULT_DATA: AppData = {
       ],
     },
     {
-      name: "Simnani Big Land",
-      description: "Sustainable agriculture projects and modern farming initiatives for long-term growth.",
+      name: "Simnani Works",
+      description: "Workforce hiring, contractor services, project tenders, skilled labor, and business growth opportunities.",
       phone: "+91 7869829723",
       whatsapp: "https://wa.me/917869829723",
-      website: "https://simnanibigland.com",
-      iconName: "Leaf",
+      website: "https://www.simnaniestates.com/",
+      iconName: "Briefcase",
+      additionalContacts: [
+        { phone: "+91 9407715886", whatsapp: "https://wa.me/919407715886" }
+      ],
     }
   ],
   socialLinks: {
@@ -77,38 +95,43 @@ export default function App() {
     if (savedData) {
       try {
         const parsed = JSON.parse(savedData);
-        // Migration: Rename Greens to Big Land if found in saved data
         let hasChanges = false;
-        if (parsed.ventures) {
+        
+        // Ensure both ventures (Simnani Estates & Simnani Works) exist
+        if (!parsed.ventures || parsed.ventures.length < 2 || !parsed.ventures.some((v: any) => v.name.toLowerCase().includes('work'))) {
+          parsed.ventures = DEFAULT_DATA.ventures;
+          hasChanges = true;
+        } else {
           parsed.ventures = parsed.ventures.map((v: any, idx: number) => {
-            if (v.name === "Simnani Greens") {
-              v.name = "Simnani Big Land";
-              hasChanges = true;
+            if (idx === 0 || v.name.toLowerCase().includes("estate")) {
+              v.name = "Simnani Estates";
+              v.website = "https://www.simnaniestates.com/";
             }
-            if (idx === 0 || v.name.toLowerCase().includes("estate") || (v.website && v.website.includes("netlify"))) {
-              if (v.website !== "https://www.simnaniestates.com/") {
-                v.website = "https://www.simnaniestates.com/";
-                hasChanges = true;
-              }
-              if (v.watermarkImage || v.backgroundImage) {
-                delete v.watermarkImage;
-                delete v.backgroundImage;
-                hasChanges = true;
-              }
+            if (idx === 1 || v.name.toLowerCase().includes("work")) {
+              v.name = "Simnani Works";
+              v.phone = "+91 7869829723";
+              v.whatsapp = "https://wa.me/917869829723";
+              v.additionalContacts = [
+                { phone: "+91 9407715886", whatsapp: "https://wa.me/919407715886" }
+              ];
             }
             return v;
           });
+          hasChanges = true;
         }
+
         // Migration: Update empty or non-existent logoUrl to the newly uploaded logo
         if (!parsed.logoUrl || parsed.logoUrl === '') {
           parsed.logoUrl = logoImg;
           hasChanges = true;
         }
+
         // Ensure imranAliPhoto is cleared
         if (parsed.leadership?.imranAliPhoto) {
           parsed.leadership.imranAliPhoto = '';
           hasChanges = true;
         }
+
         if (hasChanges) {
           localStorage.setItem('simnani_app_data_v2', JSON.stringify(parsed));
         }
@@ -120,21 +143,13 @@ export default function App() {
   }, []);
 
   const handleSaveData = (newData: AppData) => {
-    if (newData.ventures) {
-      newData.ventures = newData.ventures.map((v, idx) => {
-        if (idx === 0 || v.name.toLowerCase().includes('estate')) {
-          return { ...v, website: 'https://www.simnaniestates.com/' };
-        }
-        return v;
-      });
-    }
     setAppData(newData);
     localStorage.setItem('simnani_app_data_v2', JSON.stringify(newData));
   };
 
-  const handleReset = () => {
-    setAppData(DEFAULT_DATA);
+  const handleResetData = () => {
     localStorage.removeItem('simnani_app_data_v2');
+    setAppData(DEFAULT_DATA);
   };
 
   return (
@@ -142,23 +157,22 @@ export default function App() {
       <AdminPanel 
         data={appData} 
         onSave={handleSaveData} 
-        onReset={handleReset}
+        onReset={handleResetData}
         isOpen={isAdminOpen} 
         onClose={() => setIsAdminOpen(false)} 
       />
 
-      <main>
-        {/* Hero Section */}
-        <section className="relative min-h-[500px] md:h-screen overflow-hidden flex flex-col">
-        {/* Background */}
-        <div className="absolute inset-0 z-0">
+      {/* Hero Section */}
+      <section className="relative min-h-[92vh] md:min-h-screen flex flex-col justify-between overflow-hidden">
+        {/* Dynamic Background Media */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
           {appData.heroBackgroundType === 'video' ? (
             <video
               autoPlay
               loop
               muted
               playsInline
-              key={appData.heroBackground} // Force reload on change
+              key={appData.heroBackground}
               className="w-full h-full object-cover opacity-60 scale-100"
               src={appData.heroBackground}
             />
@@ -172,7 +186,7 @@ export default function App() {
               className="w-full h-full object-cover opacity-60"
             />
           )}
-          {/* Cinematic Overlay - Refined */}
+          {/* Cinematic Overlay */}
           <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/60 via-transparent to-[#050B18]/30" />
         </div>
 
@@ -220,19 +234,13 @@ export default function App() {
                 {/* Admin Trigger (Settings Icon) */}
                 <button 
                   onClick={() => setIsAdminOpen(true)}
-                  className="p-2 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-[#D4AF37]"
-                  aria-label="Admin Settings"
+                  className="p-2 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-[#D4AF37] relative group"
+                  title="Admin Dashboard"
                 >
                   <Settings size={20} />
-                </button>
-
-                {/* Mobile Menu Toggle */}
-                <button 
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-                  className="md:hidden text-white/95 hover:text-[#D4AF37] transition-colors duration-300 focus:outline-none p-1"
-                  aria-label="Toggle menu"
-                >
-                  {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                  <span className="absolute -bottom-8 right-0 bg-[#0A1120] border border-white/10 text-white text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                    Admin Portal
+                  </span>
                 </button>
 
                 {/* Desktop Call to Action */}
@@ -242,10 +250,19 @@ export default function App() {
                 >
                   GET IN TOUCH
                 </a>
+
+                {/* Mobile Menu Button */}
+                <button 
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="md:hidden p-2 text-white/90 hover:text-[#D4AF37] transition-colors focus:outline-none"
+                  aria-label="Toggle menu"
+                >
+                  {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
               </div>
             </nav>
 
-            {/* Premium Mobile Menu Dropdown */}
+            {/* Mobile Navigation Dropdown */}
             <div 
               className={`md:hidden absolute top-full mt-3 left-5 right-5 z-40 liquid-glass rounded-2xl p-6 transition-all duration-300 ease-out border border-white/10 ${
                 isMobileMenuOpen 
@@ -285,7 +302,6 @@ export default function App() {
           <div className="flex-1 flex flex-col justify-center md:justify-end px-5 xs:px-6 md:px-12 lg:px-16 pb-4 md:pb-32 pt-28 md:pt-0">
             <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-8 md:gap-12 lg:gap-16 items-end w-full max-w-7xl mx-auto">
               <div className="left-col space-y-6 md:space-y-8">
-
                 <AnimatedHeading 
                   text={"Simnani Group"}
                   className="text-[8vw] xs:text-[7vw] sm:text-[48px] md:text-6xl lg:text-[72px] font-bold mb-3 leading-[1.05] tracking-tight text-shadow-premium"
@@ -319,10 +335,14 @@ export default function App() {
 
               <div className="hidden lg:block tag-card">
                 <FadeIn delay={1400} duration={1000} className="flex justify-end">
-                  <div className="liquid-glass border border-[#D4AF37]/10 px-10 py-5 rounded-[2.5rem]">
-                    <span className="text-lg font-light tracking-[0.3em] text-[#D4AF37]/80 uppercase text-shadow-premium">
-                      Estates • Big Land
-                    </span>
+                  <div className="liquid-glass border border-white/10 p-8 rounded-3xl backdrop-blur-md max-w-sm">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#D4AF37]"></span>
+                      <span className="text-xs uppercase tracking-widest text-[#D4AF37] font-semibold">Vision</span>
+                    </div>
+                    <p className="text-sm text-gray-300 font-light leading-relaxed">
+                      Leading premium property investments, verified industrial hubs, and sustainable agribusiness across Central India.
+                    </p>
                   </div>
                 </FadeIn>
               </div>
@@ -331,11 +351,16 @@ export default function App() {
         </div>
       </section>
 
+      {/* Main Content Sections */}
+      <main id="main-content">
       {/* Ventures Section */}
-      <section id="ventures" className="py-4 md:py-32 px-5 xs:px-6 md:px-12 lg:px-16 relative z-10 bg-[#050B18]">
-        <FadeIn className="text-center mb-4 md:mb-20">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-shadow-premium">Our Ventures</h2>
-          <div className="h-0.5 w-24 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent mx-auto rounded-full"></div>
+      <section id="ventures" className="py-12 md:py-24 px-5 xs:px-6 md:px-12 lg:px-16 max-w-7xl mx-auto relative z-10">
+        <FadeIn className="text-center mb-10 md:mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-shadow-premium">Business Ventures</h2>
+          <div className="h-0.5 w-24 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent mx-auto rounded-full mb-8"></div>
+          <p className="text-gray-400 text-sm md:text-lg max-w-2xl mx-auto font-light">
+            Empowering regional development through our integrated real estate and modern agricultural ventures.
+          </p>
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto">
@@ -356,11 +381,12 @@ export default function App() {
             <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-shadow-premium text-white">Services</h2>
             <div className="h-0.5 w-24 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent mx-auto rounded-full mb-8"></div>
             <p className="text-gray-300 text-sm md:text-lg leading-relaxed max-w-4xl mx-auto font-light">
-              We provide verified Industrial, Commercial, Residential and Agricultural Land solutions across Chhattisgarh and Madhya Pradesh. Through Simnani Estates, we offer Industrial Land, Factory Land, Warehouse Land, Commercial &amp; Residential Properties. Through Simnani Big Land, we provide Agricultural Land, Farm Investment, Polyhouse &amp; Greenhouse Design, Construction &amp; Installation, Smart Farming Solutions and Plantation Projects.
+              We provide verified Industrial, Commercial, Residential and Agricultural Land solutions across Chhattisgarh and Madhya Pradesh. Through Simnani Estates, we offer Industrial Land, Factory Land, Warehouse Land, Commercial &amp; Residential Properties, and Agricultural Farmland. Through Simnani Works, we provide comprehensive Workforce Solutions, Contractor Services, Industrial Staffing, Project Work Orders, and Business Opportunities.
             </p>
           </FadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto mt-8 md:mt-12">
+            {/* Simnani Estates Card */}
             <FadeIn delay={200} className="h-full">
               <div className="bg-[#0A1120] border border-[#D4AF37]/20 rounded-3xl p-6 md:p-8 h-full shadow-xl hover:border-[#D4AF37]/40 transition-all duration-300 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full blur-2xl group-hover:bg-[#D4AF37]/10 transition-all pointer-events-none"></div>
@@ -390,8 +416,8 @@ export default function App() {
                     "Industrial Land",
                     "Commercial Property",
                     "Residential Property",
-                    "Factory Land",
-                    "Warehouse Land",
+                    "Agricultural & Farm Land (Big Land)",
+                    "Factory & Warehouse Land",
                     "Property Consultation"
                   ].map((item) => (
                     <li key={item} className="flex items-center gap-3 text-gray-300 text-sm md:text-base">
@@ -403,23 +429,39 @@ export default function App() {
               </div>
             </FadeIn>
 
+            {/* Simnani Works Card */}
             <FadeIn delay={300} className="h-full">
               <div className="bg-[#0A1120] border border-[#D4AF37]/20 rounded-3xl p-6 md:p-8 h-full shadow-xl hover:border-[#D4AF37]/40 transition-all duration-300 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 rounded-full blur-2xl group-hover:bg-[#D4AF37]/10 transition-all pointer-events-none"></div>
-                <div className="flex items-center gap-3.5 mb-6">
-                  <div className="p-3 rounded-2xl bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20">
-                    <Leaf size={24} />
+                <div className="flex items-center justify-between gap-3.5 mb-6">
+                  <div className="flex items-center gap-3.5">
+                    <div className="p-3 rounded-2xl bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20">
+                      <Briefcase size={24} />
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-bold text-white tracking-wide">Simnani Works</h3>
                   </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-white tracking-wide">Simnani Big Land</h3>
+                  <a
+                    href="https://www.simnaniestates.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.open("https://www.simnaniestates.com/", "_blank", "noopener,noreferrer");
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-[#D4AF37]/40 bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 text-[#D4AF37] text-xs font-bold tracking-wider transition-all"
+                  >
+                    <span>Explore Projects</span>
+                    <ArrowRight size={12} />
+                  </a>
                 </div>
                 <ul className="space-y-3.5">
                   {[
-                    "Agricultural Land",
-                    "Farm Investment",
-                    "Polyhouse Design",
-                    "Polyhouse Construction",
-                    "Greenhouse Installation",
-                    "Smart Farming Solutions"
+                    "Workforce & Manpower Hiring",
+                    "Contractor & Project Work Orders",
+                    "Skilled & Technical Labor",
+                    "Industrial & Commercial Staffing",
+                    "Vendor & Material Supply",
+                    "Job Opportunities & Contracts"
                   ].map((item) => (
                     <li key={item} className="flex items-center gap-3 text-gray-300 text-sm md:text-base">
                       <span className="w-2 h-2 rounded-full bg-[#D4AF37] shrink-0"></span>
@@ -438,32 +480,44 @@ export default function App() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
           <FadeIn>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">About & Location</h2>
-            
-            <div className="mb-8 max-w-xl space-y-4">
-              <span className="text-xs uppercase tracking-[0.2em] text-[#D4AF37] font-semibold block">
-                Leadership
-              </span>
-              
-              <div className="flex flex-col gap-4">
-                {/* Imran Ali Card */}
-                <div className="p-5 sm:p-6 rounded-2xl bg-[#D4AF37]/5 border border-[#D4AF37]/25 hover:border-[#D4AF37]/40 transition-all flex items-center gap-5 shadow-lg">
-                  <div 
-                    className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-[#D4AF37]/50 p-1 bg-[#0A1120] shrink-0 overflow-hidden shadow-xl shadow-[#D4AF37]/10 flex items-center justify-center select-none"
-                  >
-                    <div className="w-full h-full rounded-full bg-gradient-to-br from-[#D4AF37]/25 via-[#0A1120] to-[#D4AF37]/10 flex flex-col items-center justify-center text-[#D4AF37]">
-                      <span className="text-xl sm:text-2xl font-bold tracking-wider">IA</span>
-                      <span className="text-[9px] uppercase tracking-widest text-[#D4AF37]/80 font-medium mt-0.5">
-                        Founder
-                      </span>
-                    </div>
+            <div className="space-y-4 mb-8">
+              <div className="p-5 sm:p-6 rounded-2xl bg-[#D4AF37]/5 border border-[#D4AF37]/25 hover:border-[#D4AF37]/40 transition-all flex items-center gap-5 shadow-lg">
+                <div 
+                  className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-[#D4AF37]/50 p-1 bg-[#0A1120] shrink-0 overflow-hidden shadow-xl shadow-[#D4AF37]/10 flex items-center justify-center select-none"
+                >
+                  <div className="w-full h-full rounded-full bg-gradient-to-br from-[#D4AF37]/25 via-[#0A1120] to-[#D4AF37]/10 flex flex-col items-center justify-center text-[#D4AF37]">
+                    <span className="text-xl sm:text-2xl font-bold tracking-wider">IA</span>
+                    <span className="text-[9px] uppercase tracking-widest text-[#D4AF37]/80 font-medium mt-0.5">
+                      Founder
+                    </span>
                   </div>
+                </div>
 
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-white text-lg sm:text-xl font-bold tracking-tight">Imran Ali</h3>
-                    <p className="text-sm sm:text-base text-[#D4AF37] mt-1 font-medium leading-snug">
-                      Founder — Real Estate &amp; Business Development
-                    </p>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-white text-lg sm:text-xl font-bold tracking-tight">Imran Ali</h3>
+                  <p className="text-sm sm:text-base text-[#D4AF37] mt-1 font-medium leading-snug">
+                    Founder — Real Estate &amp; Business Development
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-5 sm:p-6 rounded-2xl bg-[#D4AF37]/5 border border-[#D4AF37]/25 hover:border-[#D4AF37]/40 transition-all flex items-center gap-5 shadow-lg">
+                <div 
+                  className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-[#D4AF37]/50 p-1 bg-[#0A1120] shrink-0 overflow-hidden shadow-xl shadow-[#D4AF37]/10 flex items-center justify-center select-none"
+                >
+                  <div className="w-full h-full rounded-full bg-gradient-to-br from-[#D4AF37]/25 via-[#0A1120] to-[#D4AF37]/10 flex flex-col items-center justify-center text-[#D4AF37]">
+                    <span className="text-xl sm:text-2xl font-bold tracking-wider">MH</span>
+                    <span className="text-[8px] sm:text-[9px] uppercase tracking-widest text-[#D4AF37]/80 font-medium mt-0.5 text-center">
+                      Co-Founder
+                    </span>
                   </div>
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-white text-lg sm:text-xl font-bold tracking-tight">Mohd Misbahul Haq</h3>
+                  <p className="text-sm sm:text-base text-[#D4AF37] mt-1 font-medium leading-snug">
+                    Co-Founder — Marketing Manager &amp; AI Development
+                  </p>
                 </div>
               </div>
             </div>
